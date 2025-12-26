@@ -14,19 +14,18 @@ def display_state():
 ${machine['money']} of money''')
 
 
-def make_coffee(coffee):
-    if coffee is not None:
-        machine['water'] -= coffee['water']
-        machine['milk'] -= coffee['milk']
-        machine['beans'] -= coffee['beans']
-        machine['cups'] -= 1
-        machine['money'] += coffee['cost']
+def brew(coffee):
+    machine['water'] -= coffee['water']
+    machine['milk'] -= coffee['milk']
+    machine['beans'] -= coffee['beans']
+    machine['cups'] -= 1
+    machine['money'] += coffee['cost']
 
 
 def sell():
-    selection = input('What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino: ')
-    coffee = espresso if selection == '1' else latte if selection == '2' else cappuccino if selection == '3' else None
-    make_coffee(coffee)
+    number = int(input('What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino: '))
+    selection = [espresso, latte, cappuccino][number - 1]
+    brew(selection)
 
 
 def fill():
@@ -44,13 +43,9 @@ def give():
 
 def main():
     display_state()
-    action = input("\nWrite action (buy, fill, take): ")
-    if action == "buy":
-        sell()
-    elif action == "fill":
-        fill()
-    elif action == "take":
-        give()
+    actions = {'buy': sell, 'fill': fill, 'take': give}
+    selection = input("\nWrite action (buy, fill, take): ")
+    actions[selection]()
     print()
     display_state()
 
