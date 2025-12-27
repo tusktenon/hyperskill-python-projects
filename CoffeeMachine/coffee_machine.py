@@ -6,12 +6,24 @@ cappuccino = {'water': 200, 'milk': 100, 'beans': 12, 'cost': 6}
 
 
 def display_state():
-    print(f'''The coffee machine has:
+    print(f'''
+The coffee machine has:
 {machine['water']} ml of water
 {machine['milk']} ml of milk
 {machine['beans']} g of coffee beans
 {machine['cups']} disposable cups
 ${machine['money']} of money''')
+
+
+def can_brew(coffee):
+    for resource in ['water', 'milk', 'beans']:
+        if machine[resource] < coffee[resource]:
+            print(f'Sorry, not enough {resource}!')
+            return False
+    if machine['cups'] == 0:
+        print('Sorry, out of cups!')
+        return False
+    return True
 
 
 def brew(coffee):
@@ -23,13 +35,17 @@ def brew(coffee):
 
 
 def sell():
-    number = int(input('What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino: '))
-    selection = [espresso, latte, cappuccino][number - 1]
-    brew(selection)
+    selection = input('\nWhat do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu: ')
+    if selection == 'back':
+        return
+    coffee = [espresso, latte, cappuccino][int(selection) - 1]
+    if can_brew(coffee):
+        print("I have enough resources, making you a coffee!")
+        brew(coffee)
 
 
 def fill():
-    machine['water'] += int(input('Write how many ml of water you want to add: '))
+    machine['water'] += int(input('\nWrite how many ml of water you want to add: '))
     machine['milk'] += int(input('Write how many ml of milk you want to add: '))
     machine['beans'] += int(input('Write how many grams of coffee beans you want to add: '))
     machine['cups'] += int(input('Write how many disposable cups you want to add: '))
@@ -38,16 +54,13 @@ def fill():
 def give():
     money = machine['money']
     machine['money'] = 0
-    print(f'I gave you ${money}')
+    print(f'\nI gave you ${money}')
 
 
 def main():
-    display_state()
-    actions = {'buy': sell, 'fill': fill, 'take': give}
-    selection = input("\nWrite action (buy, fill, take): ")
-    actions[selection]()
-    print()
-    display_state()
+    actions = {'buy': sell, 'fill': fill, 'take': give, 'remaining': display_state}
+    while (selection := input("\nWrite action (buy, fill, take, remaining, exit): ")) != 'exit':
+        actions[selection]()
 
 
 if __name__ == '__main__':
