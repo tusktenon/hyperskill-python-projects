@@ -404,3 +404,142 @@ $0 of money
 Write action (buy, fill, take, remaining, exit): 
 > exit
 ```
+
+
+## Stage 6/6: Brush up your code
+
+### Description
+
+Let's redesign our program and write a class that represents a coffee machine. The class should have a method that takes a string as input. Every time the user inputs a string to the console, the program invokes this method with one argument: the line that the user inputs to the console. This system simulates pretty accurately how real-world electronic devices work. External components (like buttons on the coffee machine or tapping on the screen) generate events that pass into the single interface of the program.
+
+The system input should only be handled via this method and its string argument. Merging the different instances of input handling into a single method will help us maintain our code more efficiently.
+
+However, the first problem that comes to mind is: how can we write that method in a way that it represents all that coffee machine can do? If the user inputs a single number, how can the method determine what that number is: a variant of coffee chosen by the user or the number of the disposable cups that a special worker added into the coffee machine?
+
+The right solution to this problem is to store the current state of the machine. The coffee machine has several states it can be in. For example, the state could be "choosing an action" or "choosing a type of coffee". Every time the user inputs something and a program passes that line to the method, the program determines how to interpret this line using the information about the current state. After processing this line, the state of the coffee machine can be changed or can stay the same.
+
+Remember, that:
+- For the espresso, the coffee machine needs *250 ml* of water and *16 g* of coffee beans. It costs *$4*.
+- For the latte, the coffee machine needs *350 ml* of water, *75 ml* of milk, and *20 g* of coffee beans. It costs *$7*.
+- And for the cappuccino, the coffee machine needs *200 ml* of water, *100 ml* of milk, and *12 g* of coffee. It costs *$6*.
+
+### Objectives
+
+Your final task is to refactor the program. Make it so that you can communicate with the coffee machine through a single method. Here's what an ideal project structure might look like:
+
+1. A class should be used to represent the coffee machine. Make sure to name it `CoffeeMachine`. It has variables that represent quantity of water, milk, beans, cups and money. It also has constants that represent its internal state; whether the coffee machine is currently displaying the menu or executing an action like buy, fill, take, remaining, or exit.
+
+2. The main loop exists outside the class. This loop is responsible for displaying the initial prompt, passing the input to the coffee machine's input handling method, printing values returned by the coffee machine, and exiting the program based on the machine's state. Basically, it will act like a gateway for the coffee machine.
+
+3. Except the `CoffeeMachine` class, make sure to include everything else within a `if __name__ == '__main__':` block to ensure your code can be tested properly.
+
+4. The coffee machine class should have a method for handling all user input that is passed to it from the loop. It should be able to interpret what the input means based on its current state. This method will act as the single point of access to the coffee machine class.
+
+5. The class should also implement methods to deal with user actions based on the provided input and its state. You can also implement other methods, each serving a specific purpose. Instead of printing information directly from these methods, it is better to return the values so that the loop outside of the class can deal with all I/O operations.
+
+6. If you're feeling adventurous, you can implement states for the coffee machine as an inner class. This means that `State` is a class within the coffee machine class.
+
+Here are diagrams showcasing a generalized way for how you can structure your program. You can be creative but keep in mind that you must name your class `CoffeeMachine` with attributes `water`, `milk`, `beans`, `cups`, and `money` to pass the tests.
+
+![Class diagram](Diagrams/ClassDiagram.webp)
+
+![State diagram](Diagrams/StateDiagram.webp)
+
+This is just a general overview of how you can refactor your program. You can try to implement it in your own unique way as well.
+
+### Example
+
+Your coffee machine should have the same initial resources as in the example (*400 ml* of water, *540 ml* of milk, *120 g* of coffee beans, *9* disposable cups, *$550* in cash).
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+```text
+Write action (buy, fill, take, remaining, exit):
+> remaining
+
+The coffee machine has:
+400 ml of water
+540 ml of milk
+120 g of coffee beans
+9 disposable cups
+$550 of money
+
+Write action (buy, fill, take, remaining, exit):
+> buy
+
+What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:
+> 2
+I have enough resources, making you a coffee!
+
+Write action (buy, fill, take, remaining, exit):
+> remaining
+
+The coffee machine has:
+50 ml of water
+465 ml of milk
+100 g of coffee beans
+8 disposable cups
+$557 of money
+
+Write action (buy, fill, take, remaining, exit):
+> buy
+
+What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:
+> 2
+Sorry, not enough water!
+
+Write action (buy, fill, take, remaining, exit):
+> fill
+
+Write how many ml of water you want to add:
+> 1000
+Write how many ml of milk you want to add:
+> 0
+Write how many grams of coffee beans you want to add:
+> 0
+Write how many disposable cups you want to add:
+> 0
+
+Write action (buy, fill, take, remaining, exit):
+> remaining
+
+The coffee machine has:
+1050 ml of water
+465 ml of milk
+100 g of coffee beans
+8 disposable cups
+$557 of money
+
+Write action (buy, fill, take, remaining, exit):
+> buy
+
+What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:
+> 2
+I have enough resources, making you a coffee!
+
+Write action (buy, fill, take, remaining, exit):
+> remaining
+
+The coffee machine has:
+700 ml of water
+390 ml of milk
+80 g of coffee beans
+7 disposable cups
+$564 of money
+
+Write action (buy, fill, take, remaining, exit):
+> take
+
+I gave you $564
+
+Write action (buy, fill, take, remaining, exit):
+> remaining
+
+The coffee machine has:
+700 ml of water
+390 ml of milk
+80 g of coffee beans
+7 disposable cups
+$0 of money
+
+Write action (buy, fill, take, remaining, exit):
+> exit
+```
