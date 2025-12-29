@@ -28,40 +28,41 @@ class CoffeeMachine:
         self.state = CoffeeMachine.State.MAIN
 
     def process_input(self, input_str):
-        if self.state == CoffeeMachine.State.MAIN:
-            return self._handle_main(input_str)
-        elif self.state == CoffeeMachine.State.BUY:
-            if input_str == 'back':
-                self.state = CoffeeMachine.State.MAIN
-                return None
-            coffee = [CoffeeMachine.ESPRESSO, CoffeeMachine.LATTE, CoffeeMachine.CAPPUCCINO][int(input_str) - 1]
-            return self._handle_buy(coffee)
-        elif self.state == CoffeeMachine.State.FILL_WATER:
-            self._handle_fill_water(int(input_str))
-        elif self.state == CoffeeMachine.State.FILL_MILK:
-            self._handle_fill_milk(int(input_str))
-        elif self.state == CoffeeMachine.State.FILL_BEANS:
-            self._handle_fill_beans(int(input_str))
-        elif self.state == CoffeeMachine.State.FILL_CUPS:
-            self._handle_fill_cups(int(input_str))
-        return None
+        match self.state:
+            case CoffeeMachine.State.MAIN:
+                return self._handle_main(input_str)
+            case CoffeeMachine.State.BUY:
+                if input_str == 'back':
+                    self.state = CoffeeMachine.State.MAIN
+                    return None
+                coffee = [CoffeeMachine.ESPRESSO, CoffeeMachine.LATTE, CoffeeMachine.CAPPUCCINO][int(input_str) - 1]
+                return self._handle_buy(coffee)
+            case CoffeeMachine.State.FILL_WATER:
+                return self._handle_fill_water(int(input_str))
+            case CoffeeMachine.State.FILL_MILK:
+                return self._handle_fill_milk(int(input_str))
+            case CoffeeMachine.State.FILL_BEANS:
+                return self._handle_fill_beans(int(input_str))
+            case CoffeeMachine.State.FILL_CUPS:
+                return self._handle_fill_cups(int(input_str))
 
     def _handle_main(self, command):
-        if command == 'buy':
-            self.state = CoffeeMachine.State.BUY
-            return None
-        if command == 'fill':
-            self.state = CoffeeMachine.State.FILL_WATER
-            return None
-        if command == 'take':
-            money = self.money
-            self.money = 0
-            return f'\nI gave you ${money}'
-        if command == 'remaining':
-            return self._status()
-        # command == 'exit':
-        self.state = CoffeeMachine.State.EXIT
-        return None
+        match command:
+            case 'buy':
+                self.state = CoffeeMachine.State.BUY
+                return None
+            case 'fill':
+                self.state = CoffeeMachine.State.FILL_WATER
+                return None
+            case 'take':
+                money = self.money
+                self.money = 0
+                return f'\nI gave you ${money}'
+            case 'remaining':
+                return self._status()
+            case _:  ## 'exit'
+                self.state = CoffeeMachine.State.EXIT
+                return None
 
     def _check_resources(self, coffee):
         if self.water < coffee.water:
