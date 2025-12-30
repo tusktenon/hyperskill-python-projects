@@ -8,3 +8,4 @@ These are the projects I completed as part of the [Python Core](https://hyperski
 ### Medium
 
 - [Coffee Machine](https://hyperskill.org/projects/68)
+- [Loan Calculator](https://hyperskill.org/projects/90)
