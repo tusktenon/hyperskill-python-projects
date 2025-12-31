@@ -1,0 +1,6 @@
+# Default line length is 88 (same as Black).
+line-length = 100
+
+[format]
+# Default is double quotes for strings (same as Black).
+quote-style = "single"
