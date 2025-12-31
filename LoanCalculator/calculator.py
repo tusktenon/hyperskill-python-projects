@@ -10,7 +10,7 @@ match calculation:
     case 'm':
         payment = int(input('Enter the monthly payment: '))
         months = ceil(principal / payment)
-        print(f'\nIt will take {months} {'months' if months > 1 else 'month'} to repay the loan.')
+        print(f'\nIt will take {months} month{"s" * (months > 1)} to repay the loan.')
     case 'p':
         months = int(input('Enter the number of months: '))
         regular = ceil(principal / months)
