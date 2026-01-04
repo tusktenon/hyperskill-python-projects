@@ -2,38 +2,24 @@ import argparse
 from math import ceil, log
 
 
-def process_args(args):
-    if args.interest is None:
-        print('"--interest" argument is required')
-        return
-
-    a = args.payment
-    i = args.interest / (12 * 100)
-    n = args.periods
-    p = args.principal
-
-    if len([x for x in [a, n, p] if x is not None]) != 2:
-        print('Exactly two of "--payment", "--periods", and "--principal" arguments are required')
-        return
-
-    return (a, i, n, p)
-
-
-def calculate_payment(i, n, p):
-    x = (1 + i) ** n
-    return ceil(p * i * x / (x - 1))
+def calculate(principal, interest, periods, payment):
+    if interest is None or len([x for x in [principal, periods, payment] if x is None]) != 1:
+        raise TypeError('Invalid arguments')
+    interest /= 12 * 100  # Convert from annual to nominal rate
+    if principal is None:
+        x = (1 + interest) ** periods
+        principal = round(payment * (x - 1) / (interest * x))
+        print(f'Your loan principal = {principal}!')
+    elif periods is None:
+        periods = ceil(log(payment / (payment - interest * principal), 1 + interest))
+        print(f'It will take {_format_months(periods)} to repay this loan!')
+    elif payment is None:
+        x = (1 + interest) ** periods
+        payment = ceil(principal * interest * x / (x - 1))
+        print(f'Your monthly payment = {payment}!')
 
 
-def calculate_periods(a, i, p):
-    return ceil(log(a / (a - i * p), 1 + i))
-
-
-def calculate_principal(a, i, n):
-    x = (1 + i) ** n
-    return round(a * (x - 1) / (i * x))
-
-
-def format_months(months):
+def _format_months(months):
     y, m = divmod(months, 12)
     year_str = f'{y} year{"s" * (y != 1)}'
     month_str = f'{m} month{"s" * (m != 1)}'
@@ -46,17 +32,12 @@ def main():
     parser.add_argument('--payment', type=float)
     parser.add_argument('--periods', type=int)
     parser.add_argument('--principal', type=float)
+    args = parser.parse_args()
 
-    if (args := process_args(parser.parse_args())) is None:
-        return
-    a, i, n, p = args
-
-    if a is None:
-        print(f'Your monthly payment = {calculate_payment(i, n, p)}!')
-    elif n is None:
-        print(f'It will take {format_months(calculate_periods(a, i, p))} to repay this loan!')
-    elif p is None:
-        print(f'Your loan principal = {calculate_principal(a, i, n)}!')
+    try:
+        calculate(args.principal, args.interest, args.periods, args.payment)
+    except TypeError as e:
+        print(e)
 
 
 if __name__ == '__main__':
