@@ -11,7 +11,9 @@
 Mr. Frost rushes in looking worried. "We have a situation. One of our delivery cats needs to cross the warehouse district to deliver an urgent package. The district is a 20×20 grid, and each cell has a hazard level from 0 to 3. Every time the cat passes through a cell, it loses lives equal to that cell's hazard level."
 
 He pulls up a map. "The cat starts at the top-left corner and needs to reach the bottom-right corner. It can move up, down, left, or right - one cell at a time. The cat has 9 lives total. Find the safest path - the one that costs the fewest lives."
+
 **Input format:** 20 lines, each containing 20 comma-separated numbers (0-3) representing hazard levels
+
 **Output:** The minimum number of lives lost on the optimal path from top-left (0,0) to bottom-right (19,19)
 
 This problem requires finding the "cheapest" path through a grid. There are several ways to do that. Here are some ideas to do it efficiently:

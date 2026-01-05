@@ -10,6 +10,7 @@ Mr. Frost walks in holding a sheet of graph paper covered in coordinate points. 
 He hands you a file with coordinates.
 
 **Input format:** 10 lines, each containing a coordinate pair in format `x,y` (the points alternate between outer (tip) and inner points as you traverse the star's perimeter)
+
 **Output:** The area of the star, rounded to 2 decimal places
 
 **Hint:** [this might help you](https://en.wikipedia.org/wiki/Shoelace_formula) with a certain part of the task.

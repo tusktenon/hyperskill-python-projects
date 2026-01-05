@@ -13,6 +13,7 @@ On the lunch break you notice puzzled Mr. Frost, looking at a chessboard. "Hey, 
 He sets down a file with coordinates. "I need you to verify this. Count how many pairs of queens are attacking each other. A valid solution should have zero conflicts - no two queens on the same row, column, or diagonal. If there are conflicts, I need to know exactly how many pairs are problematic."
 
 **Input format:** 8 lines, each containing a queen's position as row,col (both 0-7, representing positions on an 8×8 chessboard)
+
 **Output:** The number of queen pairs that are attacking each other. Output 0 if it's a valid solution (no conflicts).
 
 **Rules for queen attacks:**

@@ -13,6 +13,7 @@ He pulls up a log on his screen. "The problem is, they keep trying to grab forks
 "I need you to analyze this log and count how many contentions occurred during lunch. Help me figure out how bad the problem really is."
 
 **Input:** logs of actions separated by newline. Each log contains name of the elf, action (pick or release) and an id of a fork, all separated by comma. *Example:* `Jingle,pick,3`
+
 **Output:** Total number of contentions (attempts to pick up a fork that's already held by another elf).
 
 **Order of elves and forks around the table:**

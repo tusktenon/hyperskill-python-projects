@@ -11,5 +11,7 @@ He pulls up a massive network diagram on his screen. "I want to test this theory
 
 
 **Input format:** starting being's name on the first line. All other lines contain bidirectional relationships in a format Name1,Name2.
+
 **Output:** The name of the being who is furthest from the starting one (maximum degrees of separation). If multiple entities are at the same maximum distance, output the name of the one that comes first alphabetically.
+
 **Hint:** You might want to use [Breadth-First Search (BFS)](https://hyperskill.org/learn/step/7068) to explore the network level by level, tracking the depth of each person.

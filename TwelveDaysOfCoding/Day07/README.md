@@ -11,5 +11,7 @@ Mr. Frost walks in carrying a historical map. "Have you heard of the Seven Bridg
 He pulls up a modern map on his screen showing a complex network of land masses connected by 700 bridges. "We have a similar problem here at the North Pole - our transportation network has grown massive. I need to know: can our delivery routes cross each bridge exactly once? And if not, what's the MINIMUM number of times we have to go through a bridge we have already visited to cover all bridges in our network?"
 
 **Input format:** List of landmasses connected by bridges, one per line in format `LandMass1,LandMass2` (remember that bridges are bidirectional).
+
 **Output:** The minimum number of additional bridge crossings required (beyond crossing each bridge once). Or 0 if it's possible to cross each bridge exactly once.
+
 **Hint:** You might want to read about [Eulerian paths](https://en.wikipedia.org/wiki/Eulerian_path) if you are not yet familiar with it.

@@ -13,4 +13,5 @@ Mr. Frost walks in carrying sheet music and looking frustrated. "Here you are. W
 He spreads out the sheet music. "I need to find the longest contiguous rhythm pattern that appears in ALL ten drummers' sequences. That's the only part they can all play together without relearning their parts. You will help me, right?"
 
 **Input format:** 10 lines, each containing a comma-separated sequence of beats (1 = hit, 0 = rest).
+
 **Output:** The length of the longest contiguous sequence that appears in all 10 drummers' patterns.

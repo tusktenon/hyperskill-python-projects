@@ -11,6 +11,7 @@ Mr. Frost is quite sad today. The reindeer system got hacked. Apparently, Rudolp
 Oh, and by "the tech team" they mean **you**. Good luck!
 
 **Input:** list of 50 passwords chosen by reindeer, each on a new line
+
 **Output:** A password with the highest security score based on three rules. In case of ties, the earlier password in the file takes precedence.
 
 **The three rules:**
