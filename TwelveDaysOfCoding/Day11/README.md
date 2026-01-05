@@ -19,6 +19,7 @@ He hands you a production schedule. "Here. Each baking action has a duration and
 - **dependencies:** Colon-separated list of actions IDs that must finish first, or `none` if no dependencies
 
 **Example:** `5,20,2:3` means action 5 takes 20 minutes and requires actions 2 and 3 to be done first.
+
 **Output:** Minimum time in minutes to complete all actions with 11 workers working in parallel.
 
 **Hint:** You might want to read about [Directed acyclic graphs](https://hyperskill.org/learn/step/21386) first.

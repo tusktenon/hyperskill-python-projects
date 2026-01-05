@@ -6,6 +6,7 @@ WORKERS = 11
 debug = False
 debug_simulation_loops = 10
 
+
 ### STEP 1: Read task durations and dependencies from the dataset
 
 # Since tasks are indexed sequentially from 0, we can just use lists instead of dicts
@@ -84,9 +85,6 @@ time = 0
 # Times when each worker becomes available
 busy_until = WORKERS * [0]
 
-# Tasks currently assigned to each worker
-assigned_to = WORKERS * [-1]
-
 # Set of tasks that have yet to be completed
 to_complete = set(range(tasks))
 
@@ -128,7 +126,6 @@ while to_complete:
     while free_workers and not startable.empty():
         worker = free_workers.pop()
         _, task = startable.get()
-        assigned_to[worker] = task
         busy_until[worker] += durations[task]
         to_complete.discard(task)
         if debug and loops < debug_simulation_loops:
