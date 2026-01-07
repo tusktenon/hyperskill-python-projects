@@ -127,3 +127,32 @@ I will get 0.6 HNL from the sale of 3.5 conicoins.
 I will get 6.87 AUD from the sale of 3.5 conicoins.
 I will get 0.73 MAD from the sale of 3.5 conicoins.
 ```
+
+
+## Stage 5/6: JSON and the Rates
+
+### Description
+
+In the previous stages, we worked with different real-world currencies but the exchange rates were fixed. Unfortunately (or not, depending on your political stance), we don't really have fixed exchange rates in today's world. At this stage, you will have to work with the Internet to get the information! The [FloatRates](http://www.floatrates.com/json-feeds.html) site contains a special JSON page for each currency. Your task is to make requests to these pages and download the actual data on the exchange rates of the US dollar and the euro. Remember, that the data is stored in JSON format.
+
+### Objectives
+
+There are many currency codes, for example, RUB, ARS, ILS, AUD, MAD, etc. Your task is to return the information about the exchange rates from the site specified above for a given currency and USD and EUR.
+
+1. Take the currency code as the user input.
+2. Make a request to `http://www.floatrates.com/daily/YOUR_CURRENCY_CODE.json`. Don't forget to replace `YOUR_CURRENCY_CODE` in the link with your currency and put the code in lowercase.
+3. Print your result for USD and EUR.
+
+### Example
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+> [!NOTE]
+> Be aware that the dictionary elements are unordered. The results of your output may differ, as the service updates the data once in twelve hours. Don't hesitate to print the whole string for your own interest, but it is not a part of the stage.
+
+The output for AUD:
+```text
+> AUD
+{'code': 'USD', 'alphaCode': 'USD', 'numericCode': '840', 'name': 'U.S. Dollar', 'rate': 0.65826859178751, 'date': 'Mon, 12 Aug 2024 09:55:14 GMT', 'inverseRate': 1.5191367360921}
+{'code': 'EUR', 'alphaCode': 'EUR', 'numericCode': '978', 'name': 'Euro', 'rate': 0.60285890590547, 'date': 'Mon, 12 Aug 2024 09:55:14 GMT', 'inverseRate': 1.65876292148}
+```
