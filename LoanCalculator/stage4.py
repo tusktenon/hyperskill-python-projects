@@ -3,12 +3,10 @@ from math import ceil, log
 
 
 def calculate_annuity(principal, interest, periods, payment):
-    optional_args = [principal, periods, payment]
-    all_args = optional_args + [interest]
     if (
         interest is None
-        or len([arg for arg in optional_args if arg is None]) != 1
-        or len([arg for arg in all_args if arg is not None and arg < 0]) > 0
+        or len([arg for arg in [principal, periods, payment] if arg is None]) != 1
+        or any([arg is not None and arg < 0 for arg in [principal, interest, periods, payment]])
     ):
         print('Incorrect parameters')
         return
@@ -35,7 +33,7 @@ def _format_months(months):
 
 
 def calculate_differentiated(principal, interest, periods):
-    if len([x for x in [principal, interest, periods] if x < 0]) > 0:
+    if any([arg is None or arg < 0 for arg in [principal, interest, periods]]):
         print('Incorrect parameters')
         return
     interest /= 12 * 100  # Convert from annual to nominal rate
