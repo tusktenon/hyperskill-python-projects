@@ -1,6 +1,4 @@
-CONICOINS_TO_DOLLARS = 100
-
-conicoins = int(input())
-print('I have', conicoins, 'conicoins.')
-print(f'{conicoins} conicoins cost {conicoins * CONICOINS_TO_DOLLARS} dollars.')
-print('I am rich! Yippee!')
+conicoins = int(input('Please, enter the number of conicoins you have: '))
+rate = float(input('Please, enter the exchange rate: '))
+total = round(conicoins * rate, 2)
+print('The total amount of dollars:', total)
