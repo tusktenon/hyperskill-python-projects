@@ -10,6 +10,7 @@ These are the projects I completed as part of the [Python Core](https://hyperski
 
 ### Medium
 
+- [Bill Splitter](https://hyperskill.org/projects/175)
 - [Coffee Machine](https://hyperskill.org/projects/68)
 - [Currency Converter](https://hyperskill.org/projects/157)
 - [Loan Calculator](https://hyperskill.org/projects/90)
