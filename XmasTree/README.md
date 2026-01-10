@@ -45,3 +45,42 @@ The greater-than symbol followed by a space (`> `) represents the user input. No
 `> 7`
 
 ![](img/stage1c.webp)
+
+
+## Stage 2/4: More details
+
+### Description
+
+To enhance the appearance of the Christmas tree, which currently looks like a triangle made of stars, we will incorporate a few additional elements. Firstly, we will add a decorative item on the top. Secondly, we will encircle the tree with a line. And lastly, we will attach a stem at the bottom.
+
+To make it easier, try to create a function that can insert the Christmas tree into a table of `WIDTH * HEIGHT` size, where the size of the table is equal to the width and height of the drawn Christmas tree.
+
+### Objectives
+
+1. Add the `X` tip to the top.
+2. At the bottom, in the middle, add a stem consisting of two characters `|` separated by a space `| |`.
+3. As a result, the height of the Christmas tree will be two levels higher.
+4. Replace the asterisk, which has been a tip so far, with the `^` sign.
+5. Replace the outermost asterisks on the left side with `/` and on the right side with `\`.
+6. The tree for a height of 4 should look like this:
+
+|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+|  0  |     |     |     |  X  |     |     |     |
+|  1  |     |     |     |  ^  |     |     |     |
+|  2  |     |     |  /  |  *  |  \  |     |     |
+|  3  |     |  /  |  *  |  *  |  *  |  \  |     |
+|  4  |  /  |  *  |  *  |  *  |  *  |  *  |  \  |
+|  5  |     |     | \|  |     | \|  |     |     |
+
+### Examples
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1:** *14 lines*
+
+![](img/stage2a.webp)
+
+**Example 2:** *7 lines*
+
+![](img/stage2b.webp)
