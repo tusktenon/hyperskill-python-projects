@@ -14,3 +14,4 @@ These are the projects I completed as part of the [Python Core](https://hyperski
 - [Coffee Machine](https://hyperskill.org/projects/68)
 - [Currency Converter](https://hyperskill.org/projects/157)
 - [Loan Calculator](https://hyperskill.org/projects/90)
+- [X-mas Tree](https://hyperskill.org/projects/391)

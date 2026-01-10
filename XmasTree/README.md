@@ -1,0 +1,7 @@
+# X-mas Tree
+
+## Project description
+
+Welcome to a fun project that takes us back to the '80s and the world of ASCII characters. If you have ever been tasked with drawing a Christmas tree using asterisks in your programming journey, this project is for you. Drawing an entire Christmas card will make the task a bit more challenging. Get ready to have some fun!
+
+[View more](https://hyperskill.org/projects/391)
