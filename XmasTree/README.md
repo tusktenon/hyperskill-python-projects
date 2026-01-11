@@ -84,3 +84,65 @@ The greater-than symbol followed by a space (`> `) represents the user input. No
 **Example 2:** *7 lines*
 
 ![](img/stage2b.webp)
+
+
+## Stage 3/4: Christmas decorations
+
+### Description
+
+There's only one thing missing from the Christmas tree — decorations. We will try to place Christmas trinkets on it. But to make it more realistic, we will put them in different configurations.
+
+### Objectives
+
+1. In the input, in addition to the height of the Christmas tree, we also provide the interval at which the decorations appear after one space. The interval must always be greater than 0.
+2. Decorations `O` can only be placed in places marked with numbers. Each subsequent level will have one more decoration. For example, let's take the height of a Christmas tree is 5.
+
+|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  0  |     |     |     |     |  X  |     |     |     |     |
+|  1  |     |     |     |     |  ^  |     |     |     |     |
+|  2  |     |     |     |  /  |  *  |  \  |     |     |     |
+|  3  |     |     |  /  |  *  |  1  |  *  |  \  |     |     |
+|  4  |     |  /  |  *  |  2  |  *  |  3  |  *  |  \  |     |
+|  5  |  /  |  *  |  4  |  *  |  5  |  *  |  6  |  *  |  \  |
+|  6  |     |     |     | \|  |     | \|  |     |     |     |
+
+If the interval is 1, Christmas decorations should appear in all places marked with numbers:
+
+|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  0  |     |     |     |     |  X  |     |     |     |     |
+|  1  |     |     |     |     |  ^  |     |     |     |     |
+|  2  |     |     |     |  /  |  *  |  \  |     |     |     |
+|  3  |     |     |  /  |  *  |  O  |  *  |  \  |     |     |
+|  4  |     |  /  |  *  |  O  |  *  |  O  |  *  |  \  |     |
+|  5  |  /  |  *  |  O  |  *  |  O  |  *  |  O  |  *  |  \  |
+|  6  |     |     |     | \|  |     | \|  |     |     |     |
+
+With the interval of 3, the decoration should appear every three places, in other words, in places marked 1, 4.
+
+|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  0  |     |     |     |     |  X  |     |     |     |     |
+|  1  |     |     |     |     |  ^  |     |     |     |     |
+|  2  |     |     |     |  /  |  *  |  \  |     |     |     |
+|  3  |     |     |  /  |  *  |  O  |  *  |  \  |     |     |
+|  4  |     |  /  |  *  |  *  |  *  |  *  |  *  |  \  |     |
+|  5  |  /  |  *  |  O  |  *  |  *  |  *  |  *  |  *  |  \  |
+|  6  |     |     |     | \|  |     | \|  |     |     |     |
+
+### Examples
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1:**
+
+`> 14 6`
+
+![](img/stage3a.webp)
+
+**Example 2:**
+
+`>7 2`
+
+![](img/stage3b.webp)
