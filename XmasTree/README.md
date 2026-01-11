@@ -146,3 +146,60 @@ The greater-than symbol followed by a space (`> `) represents the user input. No
 `>7 2`
 
 ![](img/stage3b.webp)
+
+
+## Stage 4/4: Let's print a postcard!
+
+### Description
+
+To ensure your trees are printed correctly, the first test will check if tree creation functions properly. A single tree will be printed if the input contains only two values. Otherwise, you should create a card.
+
+### Objectives
+
+1. The first objective is to create a postcard with width = 50 and height = 30.
+2. The first and the last line contains symbols `-`.
+3. Every other line starts and ends with the `|` symbol.
+4. The X and Y axes position starts with 0. So, the left upper position of the symbol `-` is [0, 0], and the right bottom is [49, 29].
+5. The line 27 contains the sentence `Merry Xmas` in the middle of the row.
+6. The input may contain two numbers or a multiplication of four numbers.
+7. If the input contains two numbers, print the Christmas tree as before. With a heigh equal to the first number and the interval of the decorations as the second number. The test checks the postcard mainly with the hash function, so it is strongly recommended to use the same function that prints the tree to use this function to put that tree on the postcard. On the other hand, the test script will not show exactly where the problem is with the tree.
+8. If the input is a multiplication of four numbers, you should print a tree on the postcard in the way: `H`, `I`, `L`, `C`, where `H` is the height of the tree like before, `I` is an interval of decorations, `L` (Line) and `C` (Column) are coordinates when the top of the Christmas tree started (not the top of the tree `^` but the `X` on top). The number of trees may be higher than two.
+9. The next tree printed on the postcard overlaps other trees.
+
+The coordinates are given as shown in the figure.
+
+![](img/stage4a.webp)
+
+An example of an empty postcard:
+
+![](img/stage4b.webp)
+
+Let's consider the input `4 2 10 20 10 4 9 25`.
+
+The first tree is drawn with a height of 4, an interval of decorations 2, and in line 10 and column 20 (coordinates [20, 10]).
+
+![](img/stage4c.webp)
+
+The second tree is drawn with a height of 10, an interval of decorations 4, and in line 9 and column 25 (coordinates [25, 9]). The second tree overlaps the previous one.
+
+![](img/stage4d.webp)
+
+### Examples
+
+The greater-than symbol is followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1:**
+
+```text
+> 5 1 10 17 11 5 9 22 4 2 17 31
+```
+
+![](img/stage4e.webp)
+
+**Example 2:**
+
+```text
+>3 2 9 31 11 3 7 25 5 1 15 35 6 3 15 15
+```
+
+![](img/stage4f.webp)
