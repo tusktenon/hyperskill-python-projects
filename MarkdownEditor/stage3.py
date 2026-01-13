@@ -19,10 +19,14 @@ class MarkdownDocument:
         self.document += border + text + border
 
     def append_header(self):
-        level = int(input('Level: '))
-        while level < 1 or level > 6:
-            print('The level should be within the range of 1 to 6')
-            level = int(input('Level: '))
+        while True:
+            try:
+                level = int(input('Level: '))
+                if level < 1 or level > 6:
+                    raise ValueError()
+                break
+            except ValueError:
+                print('The level should be within the range of 1 to 6')
         text = input('Text: ')
         self.document += f'{level * "#"} {text}\n'
 
