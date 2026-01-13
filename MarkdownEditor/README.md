@@ -238,3 +238,82 @@ Some plain text
 [Tutorial](https://www.markdownguide.org/basic-syntax/)
 Choose a formatter: > !done
 ```
+
+
+## Stage 4/5: Ordered and unordered lists
+
+### Description
+
+There is one more feature that can be very useful! Imagine going to a grocery store, we bet you would need some kind of a list there. Markdown lists are straightforward; there are two kinds of them: ordered and unordered. You've already guessed that the difference between them is that an ordered list itemizes the elements (1., 2., 3., and so on) while an unordered list doesn't do it.
+
+Remember the ordered-list and unordered-list formatters we skipped in the last stage? Let's get back to them!
+
+### Objectives
+
+Implement the `ordered-list` and `unordered-list` formatters. You may want to separate the implementation into two different functions, but we suggest keeping them in one; try to get an idea of how to do it!
+
+As in the previous stage, ask a user to input a formatter: `Choose a formatter`. Keep all the functions you implemented in the previous stage and add two new ones: `ordered-list` and `unordered-list`.
+
+Both of the new formatters should require the following input:
+```text
+Number of rows: > 3
+Row #1: > First element
+Row #2: > Second element
+Row #3: > Third element
+```
+
+The number of rows should be greater than zero. If it is not, print the message `The number of rows should be greater than zero` and ask the user for input again.
+
+Both `unordered-list` and `ordered-list` should automatically add a new line at the end. All other formatters should preserve their functionality from the previous stage.
+
+### Examples
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1:** *creating an ordered list.*
+```text
+Choose a formatter: > ordered-list
+Number of rows: > 3
+Row #1: > First element
+Row #2: > Second element
+Row #3: > Third element
+1. First element
+2. Second element
+3. Third element
+
+Choose a formatter: >
+```
+
+**Example 2:** *creating an unordered list.*
+```text
+Choose a formatter: > unordered-list
+Number of rows: > 2
+Row #1: > Fourth element
+Row #2: > Fifth element
+1. First element
+2. Second element
+3. Third element
+* Fourth element
+* Fifth element
+
+Choose a formatter: >
+```
+
+**Example 3:** *handling incorrect input and adding new items to the unordered list.*
+```text
+Choose a formatter: > unordered-list
+Number of rows: > -2
+The number of rows should be greater than zero
+Number of rows: > 2
+Row #1: > Sixth element
+Row #2: > Seventh element
+1. First element
+2. Second element
+3. Third element
+* Fourth element
+* Fifth element
+* Sixth element
+* Seventh element
+
+Choose a formatter: > !done
+```
