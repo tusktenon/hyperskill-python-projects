@@ -35,6 +35,20 @@ class MarkdownDocument:
         url = input('URL: ')
         self.document += f'[{label}]({url})'
 
+    def append_list(self, ordered):
+        while True:
+            try:
+                rows = int(input('Number of rows: '))
+                if rows < 1:
+                    raise ValueError()
+                break
+            except ValueError:
+                print('The number of rows should be greater than zero')
+        for i in range(1, rows + 1):
+            row = input(f'Row #{i}: ')
+            prefix = f'{i}. ' if ordered else '- '
+            self.document += prefix + row + '\n'
+
     def append_new_line(self):
         self.document += '\n'
 
@@ -48,6 +62,8 @@ formatters = {
     'header': doc.append_header,
     'link': doc.append_link,
     'inline-code': doc.append_inline_code,
+    'ordered-list': lambda: doc.append_list(ordered=True),
+    'unordered-list': lambda: doc.append_list(ordered=False),
     'new-line': doc.append_new_line,
 }
 
