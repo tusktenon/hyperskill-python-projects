@@ -1,3 +1,6 @@
+OUTPUT_FILE = 'output.md'
+
+
 class MarkdownDocument:
     def __init__(self):
         self.document = ''
@@ -78,6 +81,8 @@ def main():
                 print('Available formatters:', ' '.join(formatters))
                 print('Special commands: !help !done')
             case '!done':
+                with open(OUTPUT_FILE, 'w') as output_file:
+                    output_file.write(doc.document)
                 break
             case _:
                 print('Unknown formatting type or command')
