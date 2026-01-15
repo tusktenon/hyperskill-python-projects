@@ -177,3 +177,125 @@ readme.md 0
 readme.md 0B
 > quit
 ```
+
+
+## Stage 3/5: Cleaning time
+
+### Description
+
+We can now inspect the content of any directory. Our program lists all files in the directory by command and specifies their size. We can use that to find the largest file in the directory, for example, and get rid of it to clean up some space. But wait, our file manager doesn't know how to do it yet.
+
+Well, not for long. In this stage, we'll teach our file handler a few new tricks:
+
+- `rm` deletes a specified file or a directory;
+- `mv` renames any file or directory;
+- `mkdir` creates a new directory.
+
+In this stage, our file manager will start correcting user mistakes. For example, if the user wants to remove a file that doesn't exist, the file manager should notify them about that and cancel the execution of the command.
+
+### Objectives
+
+In this stage, your file manager should:
+
+- Support all the commands from the previous stage;
+
+- Support the new `rm` command:
+
+    - The command deletes a file or a folder
+
+    - The user should specify the path to the file or the folder meant to be deleted. For example: `rm C:\Users\Alex\Documents\test.txt` or `rm D:\Photos`
+
+    - The user doesn't have to specify the absolute path to the file or folder. They can specify a relative path as they did with `cd` in the previous step. For example, `rm test.txt` will remove `test.txt` from the current directory. In this case, the current directory is the starting point for the relative path. If the current directory is `C:\Users`, and the user inputs `rm test.txt`, the file manager should delete the file that's located at `C:\Users\test.txt`.
+
+    - If the user didn't specify any file or folder name, the file manager should output `Specify the file or directory`
+
+    - If the user inputs the name of a file or folder that doesn't exist, output `No such file or directory`
+
+- Support the new `mv` command:
+
+    - The command renames a file or folder
+
+    - The user should specify the name of the file or folder to be renamed and the new desired name. For example, `mv old_name.txt new_name.txt`.
+
+    - For now, let's only support renaming the files that are located in the current directory
+
+    - If the user didn't specify exactly two names in the command, output `Specify the current name of the file or directory and the new name`
+
+    - If the user wants to rename a file or folder that doesn't exist, output `No such file or directory`
+
+    - If there's already a file or folder with the same name as was specified in the user's input, output `The file or directory already exists`. If on Unix and using `os.rename`, you may need to check if the input file exists first because the file will be renamed without raising an exception if the program has the necessary permissions.
+
+- Support the new `mkdir` command:
+
+    - The command creates a new folder
+
+    - If the user didn't specify a folder name, output an error message `Specify the name of the directory to be made`
+
+    - The user should specify the absolute or relative path of the new directory, for example: `mkdir D:\Projects\NewProject` or `mkdir NewProject`.
+
+    - If such a directory already exists, output an error message `The directory already exists`
+
+### Examples
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1:** *removing directories*
+```text
+Input the command
+> pwd
+D:\PyCharmProjects
+> ls
+Hangman
+Search Engine
+readme.txt
+> rm Hanhman
+No such file or directory
+> rm Hangman
+> ls
+Search Engine
+readme.txt
+> rm
+Specify the file or directory
+> rm Search Engine
+> ls
+readme.txt
+> quit
+```
+
+**Example 2:** *renaming a file*
+```text
+Input the command
+> pwd
+E:\SecretFolder
+> ls
+VerySecret
+very_personal_image.jpg
+> mv image.jpg random.jpg
+No such file or directory
+> mv very_personal_image.jpg ordinary_image.jpg
+> ls
+VerySecret
+ordinary_image.jpg
+> quit
+```
+
+**Example 3:** *creating a new directory*
+```text
+Input the command
+> pwd
+E:\SecretFolder
+> cd E:\SecretFolder\VerySecret
+> ls
+VeryVerySecret
+> mkdir
+Specify the name of the directory to be made
+> mkdir VeryVerySecret
+The directory already exists
+> ls
+VeryVerySecret
+> mkdir VerySecret_2
+> ls
+VerySecret_2
+VeryVerySecret
+> quit
+```
