@@ -299,3 +299,137 @@ VerySecret_2
 VeryVerySecret
 > quit
 ```
+
+
+## Stage 4/5: Copy-paste
+
+### Description
+
+Removing files and directories will allow us to empty some space. But sometimes, we delete things that we should have kept safe. Before we increase the scale of our work, let's make some commands that can copy files and move them to other directories.
+
+For safekeeping:
+
+- `cp` copies a file and saves that copy in a new directory
+- `mv` now, additionally, can move a file to a new directory
+
+### Objectives
+
+In this stage, your file manager should:
+
+- Support all the commands from the previous stage.
+
+- Support the new `cp` command:
+
+    - This command copies a file.
+
+    - The user should specify the paths. For example, `cp C:\Users\Alex\Documents\test.txt C:\Users` to copy the file from the `Documents` folder and place that copy in the `Users` folder;
+
+    - The user doesn't have to specify the absolute path to the file or folder. They can use a relative path. If the current working directory is `C:\Users`, and the user inputs the command `cp test.txt Alex`, the file manager should copy the file `C:\Users\test.txt` and save that copy in `C:\Users\Alex`;
+
+    - If the user didn't specify any file, the file manager should output the message: `Specify the file`;
+
+    - If the user inputs the name of a file or folder that doesn't exist, output the message: `No such file or directory`;
+
+    - If the user specified more than two names in the command, output a message: `Specify the current name of the file or directory and the new location and/or name`;
+
+    - If the destination location already has a file with that name, for example, `cp Alex\test.txt Alex`, do not copy it. Instead, output the message: `{filename} already exists in this directory`.
+
+- Expand the functionality of the `mv` command:
+
+    - This command can rename or move a file;
+
+    - The user can specify absolute or relative paths, as described in `cp` above;
+
+    - If the user specifies a path, move the file to that new location. For example, `mv test.txt Alex` will move `test.txt` from the current directory to the subdirectory `Alex`.
+
+    - If the user specifies a different filename for the target folder, move the file to the target folder and rename the file to that different filename. For example, `mv Alex\text.txt Alex\Documents\lorem_ipsum.txt` will remove `text.txt` from the `Alex` directory and put it into the `Alex\Documents` directory with the new name `lorem_ipsum.txt`;
+
+    - If the user didn't specify exactly two names in the command, output a message: `Specify the current name of the file or directory and the new location and/or name`;
+
+    - If the destination location already has a file with that name, do not move the file. Instead, output the message: `The file or directory already exists`.
+
+### Examples
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1:** *copying a file*
+```text
+Input the command
+> pwd
+C:\Users\Cheryl
+> ls
+Backup
+test.txt
+> cp test.txt Backup
+> ls
+Backup
+test.txt
+> cd Backup
+Backup
+> ls
+test.txt
+> quit
+```
+
+**Example 2:** *moving a file*
+```text
+Input the command
+> pwd
+C:\Users\User\Games
+> ls
+Project1
+Project2
+Trash
+> cd Project2
+Project2
+> ls
+game.exe
+crashlog.txt
+> mv crashlog.txt C:Users\User\Games\Trash
+crashlog.txt already exists in this directory
+> mv crashlog.txt C:Users\User\Games\Trash\crashlog2.txt
+> cd ..
+Games
+> cd Trash
+Trash
+>ls
+crashlog.txt
+crashlog2.txt
+> rm crashlog.txt
+> rm crashlog2.txt
+> quit
+```
+
+**Example 3:** *a variety of commands*
+```text
+Input the command
+> pwd
+D:\PyCharmProjects
+> ls
+Hangman
+Search Engine
+readme.txt
+> cp readme.txt Hangman
+> ls
+Hangman
+Search Engine
+readme.txt
+> cd D:\PycharmProjects\Hangman
+Hangman
+> ls
+readme.txt
+> cp readme.txt ..
+readme.txt already exists in this directory
+> rm readme.txt
+> cd ..
+PycharmProjects
+>mv readme.txt Hangman\hreadme.txt
+ls
+Hangman
+Search Engine
+> cd D:\PycharmProjects\Hangman
+Hangman
+> ls
+hreadme.txt
+> quit
+```
