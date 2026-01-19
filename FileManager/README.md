@@ -433,3 +433,130 @@ Hangman
 hreadme.txt
 > quit
 ```
+
+
+## Stage 5/5: Mass migration
+
+### Description
+
+Our file manager has basic functionality, including navigation, viewing file sizes, renaming files and folders, moving files, and copying files. However, it can be time-consuming to act on individual files, such as deleting 1000 text files while leaving 80 image files untouched. To address this, we can add name templates to our manager for more efficient large-scale work.
+
+The premise is simple. Instead of operating on a single file, the user can input a file extension (for example, .txt), and the file manager will act on every file with that extension in the current working directory.
+
+### Objectives
+
+In this stage, your file manager should:
+
+- Support all the commands from the previous stage;
+
+- Accept the `rm` command along with a file extension. Delete all files with that file extension in the current working directory. For example, `rm .txt` will delete all files of *.txt* type in the current working directory.
+
+    - If the user inputs the name of a file type that doesn't exist in the current working directory, the file manager should output the message: `File extension {extension} not found in this directory`.
+
+- Accept the `cp` command along with a file extension. Copy all files with that extension in the current working directory to a target directory.
+
+    - If the user inputs the name of a file extension that doesn't exist in the current working directory, the file manager should output the message: `File extension {extension} not found in this directory`;
+
+    - If the destination location already has a file with that name, halt the process, and output the prompt: `{filename} already exists in this directory. Replace? (y/n)` and take input from the user. If the user inputs `y`, replace the file in the destination folder with the new one. If the user inputs `n`, do not copy this file over; instead, move on to the next file(s) to be copied. If the user inputs anything else, repeat the question.
+
+- Update the `mv` command to move all files with that file extension in the current working directory to a target directory if a file extension is input. Do not also update the `mv` renaming feature to work with file extensions.
+
+    - If the user inputs the name of a file extension that doesn't exist in the current working directory, the file manager should output the message: `File extension {extension} not found in this directory`;
+
+    - If the destination location already has a file with that name, halt the process and output the prompt: `{filename} already exists in this directory. Replace? (y/n)` and take input from the user. If the user inputs `y`, replace the file in the destination folder with the new file. If the user inputs `n`, do not copy this file over. Instead, move on to the next file(s) to be copied. If the user inputs anything else, repeat the question.
+
+### Examples
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1:** *removing all files of a given file extension via rm*
+```text
+Input the command
+> pwd
+C:\Users\Cheryl
+> ls
+Backup
+test.txt
+test1.txt
+test2.txt
+seminar_notes.txt
+ascii_art_texture_practice.txt
+> rm .txt
+> ls
+Backup
+> rm .txt
+File extension .txt not found in this directory
+> rm .jpg
+File extension .jpg not found in this directory
+> rm .bats
+File extension .bats not found in this directory
+> quit
+```
+
+**Example 2:** *copying all files of a given file extension via cp*
+```text
+Input the command
+> pwd
+C:\Users\Cheryl
+> ls
+Backup
+test.txt
+> cd Backup
+Backup
+> ls
+test.txt
+test1.txt
+test2.txt
+seminar_notes.txt
+ascii_art_texture_practice.txt
+> cp .tx ..
+File extension .tx not found in this directory
+> cp .txt ..
+test.txt already exists in this directory. Replace? (y/n)
+> y
+> ls
+test.txt
+test1.txt
+test2.txt
+seminar_notes.txt
+ascii_art_texture_practice.txt
+> cd ..
+Cheryl
+> ls
+Backup
+test.txt
+test1.txt
+test2.txt
+seminar_notes.txt
+ascii_art_texture_practice.txt
+> quit
+```
+
+**Example 3:** *moving all files of a given extension via mv*
+```text
+Input the command
+> pwd
+C:\Users\Cheryl\Backup
+> ls
+> cd ..
+Cheryl
+> ls
+Backup
+test.txt
+test1.txt
+test2.txt
+seminar_notes.txt
+ascii_art_texture_practice.txt
+> mv .txt Backup
+> ls
+Backup
+> cd Backup
+Backup
+> ls
+test.txt
+test1.txt
+test2.txt
+seminar_notes.txt
+ascii_art_texture_practice.txt
+> quit
+```
