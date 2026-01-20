@@ -115,7 +115,7 @@ def _get_files_by_type(extension):
 def _confirm_overwite(filename):
     while True:
         replace = input(f'{filename} already exists in this directory. Replace? (y/n) ')
-        if replace == 'y' or replace == 'n':
+        if replace in ('y', 'n'):
             return replace
 
 
