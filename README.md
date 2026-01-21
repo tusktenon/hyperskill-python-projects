@@ -17,3 +17,8 @@ These are the projects I completed as part of the [Python Core](https://hyperski
 - [Loan Calculator](https://hyperskill.org/projects/90)
 - [Markdown Editor](https://hyperskill.org/projects/162)
 - [X-mas Tree](https://hyperskill.org/projects/391)
+
+
+### Hard
+
+- [Web Scraper](https://hyperskill.org/projects/145)
