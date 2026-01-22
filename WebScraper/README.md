@@ -55,3 +55,61 @@ Input the URL:
 
 Invalid resource!
 ```
+
+
+## Stage 2/5: The Beautiful Soup Ingredients
+
+### Theory
+
+Some Internet pages might get automatically translated according to your computer's settings. Although this might be useful in everyday life, in this project we ask you to output the data in English. To force `requests` library to return a page in English, you can use `headers` with `Accept-Language` parameter set to the value `en-US,en;q=0.5`:
+```python
+response = requests.get(url, headers={'Accept-Language': 'en-US,en;q=0.5'})
+```
+
+Note that the structure of the page might be different in cases when you use this header and when you don't (even if your default language is English).
+
+However, not all servers or web applications respect the `Accept-Language` header. Some websites might ignore the header entirely and serve content in the default language set by the server or based on other criteria like IP geolocation.
+
+`q`: This is a quality factor, which is a decimal value between 0 and 1 that indicates the client's preference for each language. The higher the `q` value, the higher the preference. For example, `en-US,en;q=0.5` means the client prefers U.S. English, but will accept any English content if U.S. English is unavailable, with a lower preference.
+
+### Description
+
+We know how to send HTTP requests and get responses. In the previous stage, the example URL responded with the `json` body, this is how the `REST` resources communicate with a client. We, humans, go to websites to access the Internet. We also have browsers, but sometimes we need to parse the website's content automatically. Parsing is one of the ways to scrape a webpage.
+
+Parsing website data begins with the inspection of the page source code with browser built-in tools. Usually, the desired information can be distinguished by some unique attributes or a set of attributes, for example, a css class name. We need to determine these attributes and then make our parsing tool (in our case, the `beautifulsoup` library) do the magic for us.
+
+### Objectives
+
+1. Take a link to the [nature.com](https://www.nature.com/) article as input. This is an example of a correct link: [https://www.nature.com/articles/d41586-023-00103-3](https://www.nature.com/articles/d41586-023-00103-3). The link to an article always contains the word "articles" in it.
+2. Download the webpage content, parse it using the `beautifulsoup` library.
+3. Print out the article's heading and short summary as a dictionary. You can find the heading in the `<title>` tag. The summary can be found in the `<meta>` tag with the `{'name': 'description'}` attribute.
+
+If the link doesn't have an article or is not a nature.com resource, the program should respond with an error message `Invalid page!`.
+
+### Examples
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input. Each example corresponds to a separate execution.
+
+**Example 1**
+```text
+Input the URL:
+> https://www.nature.com/articles/d41586-023-00103-3
+
+{"title": "Green electronics rely on materials that grow on trees", "description": "Compounds derived from eucalyptus and other plants are formulated into an ink for printing electronic components."}
+```
+
+**Example 2**
+```text
+Input the URL:
+> https://www.imdb.com/name/nm0001191/
+
+Invalid page!
+```
+
+**Example 3**
+```text
+Input the URL:
+> https://www.google.com/
+
+Invalid page!
+```
