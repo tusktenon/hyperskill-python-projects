@@ -167,3 +167,46 @@ Input the URL:
 
 The URL returned 404!
 ```
+
+
+## Stage 4/5: The Soup is Real
+
+### Description
+
+We now have a good deal of knowledge and experience, so let's put it all together and create your first real web scraper. Most of the time, the reason why people create parse-and-scrape programs is to automate the routine tasks of retrieving large data from a website. For example, every machine learning task requires some **training data**. Let's imagine you're doing research based on the recent science news. For that research, you'll need to have the most recent articles with the type "News" that are posted on the Nature journal website. Each article should be saved to a separate `.txt` file named after the article's title.
+
+### Objectives
+
+1. Create a program that takes the `https://www.nature.com/nature/articles?sort=PubDate&year=2020&page=3` URL and then goes over the page source code searching for articles.
+
+2. Detect the article type and the link to view the article tags and their attributes.
+
+3. Save the contents of each article of the type "News", that is, the text from the article body without the tags, to a separate file named `%article_title%.txt`. When you save the file, replace the whitespaces in the name of the article with underscores and remove punctuation marks in the filename. Use `string.punctuation` to remove punctuation. Strip all trailing whitespaces in the article body and title. For example, the article with the title "*Legendary Arecibo telescope will close forever — scientists are reeling*" should be saved to the file named *Legendary_Arecibo_telescope_will_close_forever_scientists_are_reeling.txt*.
+
+4. (Optional) You may output some result message once the saving is done, but it is not required.
+
+We need to inspect each article to find the tags that represent the article's contents.
+
+Here's a breakdown of what you need to do with the source HTML:
+
+1. **Find Articles:** Each article on the webpage is enclosed within `<article>` tags. So, to locate articles, look for these tags. The `<article>` tag is a semantic HTML5 element used to represent an independent piece of content, such as a blog post, news article, or forum post. In the context of web scraping, it serves as a container for each article on the webpage. By targeting `<article>` tags, we're specifically focusing on the main content sections of the webpage where articles are displayed.
+
+2. **Identify Article Type:** Within each `<article>`, the type of the article is specified inside a `<span>` tag. This `<span>` tag has a `data-test` attribute with the value representing the article type (`article.type`). The `<span>` tag is a generic inline container typically used for styling purposes or to group inline elements. In this case, it's used to enclose metadata about the article type. The `data-test` attribute serves as a marker or identifier added by the website's developers to facilitate automated testing or data extraction. By using this attribute, we can reliably locate and extract the article type information associated with each `<span>` tag.
+
+3. **Access Article Contents Link:** Each article has a link to its contents, which is inside an `<a>` tag. This `<a>` tag has a `data-track-action` attribute with the value "view article". The `<a>` tag is used to create hyperlinks, allowing users to navigate to different pages or sections of a website. Here, it's employed to create links to view the full contents of each article. The `data-track-action` attribute is a custom attribute added by the website to track user interactions, specifically actions related to viewing articles. By targeting `<a>` tags with this attribute, we can identify and extract the links leading to the complete article content.
+
+4. **Retrieve Article Body:** After clicking on the link to view an article, the body of the article is displayed. This content is wrapped inside a `<p>` tag with the attribute `{"class": "article__teaser"}`. Save this content of the article. The `<p>` tag is used to define paragraphs of text within HTML documents. In this scenario, it's utilized to encapsulate the main body of each article. The `class` attribute is a standard HTML attribute used to assign one or more classes to an element, enabling CSS styling and JavaScript manipulation. By targeting `<p>` tags with the specified class (`"article__teaser"`), we can pinpoint the paragraphs containing the summary of each article, which is typically displayed on the article listing page.
+
+> [!NOTE]
+> Keep in mind that while the above methods work for scraping this specific website, they might not work for another one. The way we scrape depends on how each website is built. Different websites use different tags, attributes, and even dynamic content loading methods.
+
+Make sure your output file is binary with the UTF-8 character encoding.
+
+### Example
+
+This time, the program should not take the URL from the input: hard-code it inside the program. Below is an example of the output:
+```text
+Saved articles:  ['COVID_research_updates_Immune_responses_to_coronavirus_persist_beyond_6_months.txt', 'What_scientists_really_think_about_the_ethics_of_facial_recognition_research.txt', 'Legendary_Arecibo_telescope_will_close_forever_scientists_are_reeling.txt', 'What_the_data_say_about_asymptomatic_COVID_infections.txt']
+```
+
+The main goal is to save the articles with the correct article bodies once the program has been executed.
