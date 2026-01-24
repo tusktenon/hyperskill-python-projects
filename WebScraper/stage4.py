@@ -14,10 +14,7 @@ for article in soup.find_all('article'):
         link_response = requests.get('https://www.nature.com' + link.get('href'))
         link_soup = BeautifulSoup(link_response.content, 'html.parser')
         title = link_soup.find('h1').text.strip()
-        filename = title
-        for p in string.punctuation:
-            filename = filename.replace(p, '')
-        filename = filename.replace(' ', '_')
+        filename = title.translate(str.maketrans(' ', '_', string.punctuation))
         teaser = link_soup.find('p', {'class': 'article__teaser'})
         print(f'Saving "{title}"...')
         with open(filename + '.txt', 'w', encoding='utf-8') as file:
