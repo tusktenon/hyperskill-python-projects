@@ -21,4 +21,5 @@ These are the projects I completed as part of the [Python Core](https://hyperski
 
 ### Hard
 
+- [University Admission Procedure](https://hyperskill.org/projects/163)
 - [Web Scraper](https://hyperskill.org/projects/145)
