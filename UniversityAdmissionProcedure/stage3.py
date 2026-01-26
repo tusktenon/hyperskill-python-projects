@@ -1,13 +1,8 @@
 total_applicants = int(input('Total number of applicants: '))
 total_available = int(input('Number of applicants that can be accepted: '))
 
-applicants = []
-for _ in range(total_applicants):
-    first, last, gpa = input().split()
-    applicants.append((first, last, float(gpa)))
-
-applicants.sort(key=lambda x: (-x[2], x[0], x[1]))
+applicants = [input().rsplit(maxsplit=1) for _ in range(total_applicants)]
+applicants.sort(key=lambda x: (-float(x[1]), x[0]))
 
 print('Successful applicants:')
-for first, last, gpa in applicants[:total_available]:
-    print(first, last)
+print(*[a[0] for a in applicants[:total_available]], sep='\n')
