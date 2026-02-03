@@ -82,3 +82,45 @@ Right!
 > 5
 Wrong!
 ```
+
+
+## Stage 3/4: More tasks needed!
+
+### Description
+
+Let's write an application that assesses the user's knowledge.
+Many people get nervous during exams; they can accidentally hit a wrong key, confuse `,` with `.` in floats, and so on. Our application should allow some room for errors and give a person the opportunity to correct the typo.
+
+### Objectives
+
+1. The application should give the user 5 tasks. The tasks are akin to the previous stage: two numbers from `2` to `9` and an integer operation.
+2. The user receives one task, prints the answer. If the answer contains a typo (letters or otherwise empty), the program should print `Incorrect format.` and ask to re-enter the answer. Repeat until the answer is in the correct format. If the answer is a number, print `Right!` or `Wrong!` depending on the answer and carry on to the next question.
+3. After five tasks, output `Your mark is n/5.` where **n** is the number of correct answers.
+
+### Example
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1:** *An example of the output*
+```text
+3 + 8
+> 11q
+Incorrect format.
+> eleven
+Incorrect format.
+> 11
+Right!
+5 * 7
+> 35
+Right!
+2 - 5
+> -4
+Wrong!
+3 * 3
+> 9
+Right!
+8 + 3
+> 11
+Right!
+Your mark is 4/5.
+```
