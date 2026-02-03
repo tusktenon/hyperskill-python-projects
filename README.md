@@ -22,5 +22,6 @@ These are the projects I completed as part of the [Python Core](https://hyperski
 ### Hard
 
 - [Arithmetic Exam Application](https://hyperskill.org/projects/173)
+- [Easy Rider Bus Company](https://hyperskill.org/projects/128)
 - [University Admission Procedure](https://hyperskill.org/projects/163)
 - [Web Scraper](https://hyperskill.org/projects/145)
