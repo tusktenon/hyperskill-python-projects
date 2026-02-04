@@ -378,3 +378,209 @@ bus_id: 128 stops: 4
 bus_id: 256 stops: 4
 bus_id: 512 stops: 2
 ```
+
+
+## Stage 4/6: Special stops
+
+### Description
+
+You've fixed the format errors in the `bus_id`, `stop_name`, and `stop_type` fields. Now, you can check if the content is correct: each bus line should have one starting point (`S`) and one final stop (`F`).
+
+The company is growing, the number of bus lines is ever-increasing, and logically, more bus stops appear. You need to prepare an appropriate function that calculates this data so that it doesn't have to be checked manually in the future.
+
+Here is the [documentation](https://cogniterra.org/media/attachments/lesson/25130/Documentation.jpg).
+
+### Objectives
+
+1. The string containing the data in JSON format is passed to standard input.
+2. Check the data types, required fields and format as before.
+3. Find the names of all the bus lines and verify the number of stops for each line as before.
+4. Make sure each bus line has exactly one starting point (`S`) and one final stop (`F`).
+5. If a bus line does not meet this condition, stop checking and print a message about it. Do not continue checking the other bus lines.
+6. If all bus lines meet the condition, count how many starting points and final stops there are. Print their unique names in alphabetical order.
+7. Count the transfer stops and print their unique names in alphabetical order. A transfer stop is a stop shared by at least two bus lines.
+8. The output should have the same formatting as shown in the example.
+
+If you cannot find the necessary information in the stage description, you may find it in the attached documentation.
+
+### Examples
+
+**Example 1**
+
+Input 1:
+```json
+[
+    {
+        "bus_id": 128,
+        "stop_id": 1,
+        "stop_name": "Prospekt Avenue",
+        "next_stop": 3,
+        "stop_type": "S",
+        "a_time": "08.12"
+    },
+    {
+        "bus_id": 128,
+        "stop_id": 3,
+        "stop_name": "Elm Street",
+        "next_stop": 5,
+        "stop_type": "",
+        "a_time": "08:19"
+    },
+    {
+        "bus_id": 128,
+        "stop_id": "five",
+        "stop_name": "Fifth Avenue",
+        "next_stop": 7,
+        "stop_type": "O",
+        "a_time": "08:25"
+    },
+    {
+        "bus_id": 128,
+        "stop_id": 7,
+        "stop_name": "Sesame Street",
+        "next_stop": "0",
+        "stop_type": "F",
+        "a_time": "08:77"
+    },
+    {
+        "bus_id": 512,
+        "stop_id": "",
+        "stop_name": "Bourbon Street",
+        "next_stop": 6,
+        "stop_type": "",
+        "a_time": "08:13"
+    },
+    {
+        "bus_id": 512,
+        "stop_id": 6,
+        "stop_name": "Sunset Boulevard",
+        "next_stop": 0,
+        "stop_type": "F",
+        "a_time": "38:16"
+    }
+]
+```
+
+Output 1:
+```text
+Type and field validation: 6 errors
+bus_id: 0
+stop_id: 2
+stop_name: 0
+next_stop: 1
+stop_type: 0
+a_time: 3
+
+Line names and number of stops:
+bus_id: 128 stops: 4
+bus_id: 512 stops: 2
+There is no start or end stop for the line: 512
+```
+
+**Example 2**
+
+Input 2:
+```json
+[
+    {
+        "bus_id": 128,
+        "stop_id": 1,
+        "stop_name": "Prospekt Avenue",
+        "next_stop": 3,
+        "stop_type": "S",
+        "a_time": "08:12"
+    },
+    {
+        "bus_id": 128,
+        "stop_id": 3,
+        "stop_name": "Elm Street",
+        "next_stop": 5,
+        "stop_type": "",
+        "a_time": "8:19"
+    },
+    {
+        "bus_id": 128,
+        "stop_id": 5,
+        "stop_name": "Fifth Avenue",
+        "next_stop": 7,
+        "stop_type": "O",
+        "a_time": "08:25"
+    },
+    {
+        "bus_id": 128,
+        "stop_id": "7",
+        "stop_name": "Sesame Street",
+        "next_stop": 0,
+        "stop_type": "F",
+        "a_time": "08:77"
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 2,
+        "stop_name": "Pilotow Street",
+        "next_stop": 3,
+        "stop_type": "S",
+        "a_time": "09:20"
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 3,
+        "stop_name": "Elm Street",
+        "next_stop": 6,
+        "stop_type": "",
+        "a_time": "09:45"
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 6,
+        "stop_name": "Sunset Boulevard",
+        "next_stop": 7,
+        "stop_type": "",
+        "a_time": "09:59"
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 7,
+        "stop_name": "Sesame Street",
+        "next_stop": "0",
+        "stop_type": "F",
+        "a_time": "10.12"
+    },
+    {
+        "bus_id": 512,
+        "stop_id": 4,
+        "stop_name": "Bourbon Street",
+        "next_stop": 6,
+        "stop_type": "S",
+        "a_time": "38:13"
+    },
+    {
+        "bus_id": 512,
+        "stop_id": 6,
+        "stop_name": "Sunset Boulevard",
+        "next_stop": 0,
+        "stop_type": "F",
+        "a_time": "08:16"
+    }
+]
+```
+
+Output 2:
+```text
+Type and field validation: 6 errors
+bus_id: 0
+stop_id: 1
+stop_name: 0
+next_stop: 1
+stop_type: 0
+a_time: 4
+
+Line names and number of stops:
+bus_id: 128 stops: 4
+bus_id: 256 stops: 4
+bus_id: 512 stops: 2
+
+Start stops: 3 ['Bourbon Street', 'Pilotow Street', 'Prospekt Avenue']
+Transfer stops: 3 ['Elm Street', 'Sesame Street', 'Sunset Boulevard']
+Finish stops: 2 ['Sesame Street', 'Sunset Boulevard']
+```
