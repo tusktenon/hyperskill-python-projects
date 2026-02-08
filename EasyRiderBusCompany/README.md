@@ -714,3 +714,134 @@ Start stops: 3 ['Bourbon Street', 'Pilotow Street', 'Prospekt Avenue']
 Transfer stops: 3 ['Elm Street', 'Sesame Street', 'Sunset Boulevard']
 Finish stops: 2 ['Sesame Street', 'Sunset Boulevard']
 ```
+
+
+## Stage 6/6: On-demand
+
+### Description
+
+The work seemed tedious and endless, but it finally looks like we're getting there. There is only one more point left in the specification that we need to check and fix: on-demand stops (marked with the letter `O`) cannot be initial, final, or transfer stops.
+
+In this stage, you will need to use your checks from Stage 4 to identify the stops that were incorrectly marked with `O` and display only the correct on-demand stops.
+
+Here is the [documentation](https://cogniterra.org/media/attachments/lesson/25130/Documentation.jpg).
+
+### Objectives
+
+1. The string containing the data in JSON format is passed to standard input.
+2. Check that all the departure points, final stops, and transfer stations are not "On-demand".
+3. Display the stops marked with `O` that are not starting points, final stops, or transfer stops.
+4. The output should have the same formatting as shown in the example.
+
+If you cannot find the necessary information in the stage description, you may find it in the attached documentation.
+
+### Examples
+
+**Example 1**
+
+Input 1:
+```json
+[
+    {
+        "bus_id": 128,
+        "stop_id": 1,
+        "stop_name": "Prospekt Avenue",
+        "next_stop": 3,
+        "stop_type": "S",
+        "a_time": "08:12"
+    },
+    {
+        "bus_id": 128,
+        "stop_id": 3,
+        "stop_name": "Elm Street",
+        "next_stop": 5,
+        "stop_type": "O",
+        "a_time": "08:19"
+    },
+    {
+        "bus_id": 128,
+        "stop_id": 5,
+        "stop_name": "Fifth Avenue",
+        "next_stop": 7,
+        "stop_type": "O",
+        "a_time": "08:25"
+    },
+    {
+        "bus_id": 128,
+        "stop_id": 7,
+        "stop_name": "Sesame Street",
+        "next_stop": 0,
+        "stop_type": "F",
+        "a_time": "08:37"
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 2,
+        "stop_name": "Pilotow Street",
+        "next_stop": 3,
+        "stop_type": "S",
+        "a_time": "09:20"
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 3,
+        "stop_name": "Elm Street",
+        "next_stop": 6,
+        "stop_type": "",
+        "a_time": "09:45"
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 6,
+        "stop_name": "Abbey Road",
+        "next_stop": 7,
+        "stop_type": "O",
+        "a_time": "09:59"
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 7,
+        "stop_name": "Sesame Street",
+        "next_stop": 0,
+        "stop_type": "F",
+        "a_time": "10:12"
+    },
+    {
+        "bus_id": 512,
+        "stop_id": 4,
+        "stop_name": "Bourbon Street",
+        "next_stop": 6,
+        "stop_type": "S",
+        "a_time": "08:13"
+    },
+    {
+        "bus_id": 512,
+        "stop_id": 6,
+        "stop_name": "Abbey Road",
+        "next_stop": 0,
+        "stop_type": "F",
+        "a_time": "08:16"
+    }
+]
+```
+
+Output 1:
+```text
+Type and field validation: 0 errors
+bus_id: 0
+stop_id: 0
+stop_name: 0
+next_stop: 0
+stop_type: 0
+a_time: 0
+
+Line names and number of stops:
+bus_id: 128 stops: 4
+bus_id: 256 stops: 4
+bus_id: 512 stops: 2
+
+Start stops: 3 ['Bourbon Street', 'Pilotow Street', 'Prospekt Avenue']
+Transfer stops: 3 ['Abbey Road', 'Elm Street', 'Sesame Street']
+Finish stops: 2 ['Abbey Road', 'Sesame Street']
+On demand stops: 1 ['Fifth Avenue']
+```
