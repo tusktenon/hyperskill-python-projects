@@ -584,3 +584,133 @@ Start stops: 3 ['Bourbon Street', 'Pilotow Street', 'Prospekt Avenue']
 Transfer stops: 3 ['Elm Street', 'Sesame Street', 'Sunset Boulevard']
 Finish stops: 2 ['Sesame Street', 'Sunset Boulevard']
 ```
+
+
+## Stage 5/6: Unlost in time
+
+### Description
+
+You've checked and fixed all the format errors in the `a_time` field; however, there are still some issues with the content. It is now time to move on to a more detailed analysis. First, check that arrival times for the upcoming stops make sense: they are supposed to be increasing, that is, going forward in time. After all, there is no information in the documentation that your company offers time travel.
+
+In this stage, you will need to update the check for `a_time` errors: merge the previous format and type checks with a check for correct arrival times.
+
+Here is the [documentation](https://cogniterra.org/media/attachments/lesson/25130/Documentation.jpg).
+
+### Objectives
+
+1. The string containing the data in JSON format is passed to standard input.
+2. Check that the arrival time for the upcoming stops for a given bus line is increasing. Note that each separate bus route is already sorted according to the order of the stops.
+3. If the arrival time for the next stop is earlier than or equal to the time of the current stop, stop checking that bus line and note the incorrect stop. Add the number of incorrect cases to the total count of `a_time` errors. For the correct stops, don't display anything.
+4. The output should have the same formatting as shown in the example.
+
+If you cannot find the necessary information in the stage description, you may find it in the attached documentation.
+
+### Examples
+
+**Example 1**
+
+Input 1:
+```json
+[
+    {
+        "bus_id": 128,
+        "stop_id": 1,
+        "stop_name": "Prospekt Avenue",
+        "next_stop": 3,
+        "stop_type": "S",
+        "a_time": "08:12"
+    },
+    {
+        "bus_id": 128,
+        "stop_id": 3,
+        "stop_name": "Elm Street",
+        "next_stop": 5,
+        "stop_type": "",
+        "a_time": "08:19"
+    },
+    {
+        "bus_id": 128,
+        "stop_id": 5,
+        "stop_name": "Fifth Avenue",
+        "next_stop": 7,
+        "stop_type": "O",
+        "a_time": "08:17"
+    },
+    {
+        "bus_id": 128,
+        "stop_id": 7,
+        "stop_name": "Sesame Street",
+        "next_stop": 0,
+        "stop_type": "F",
+        "a_time": "08:07"
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 2,
+        "stop_name": "Pilotow Street",
+        "next_stop": 3,
+        "stop_type": "S",
+        "a_time": "09:20"
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 3,
+        "stop_name": "Elm Street",
+        "next_stop": 6,
+        "stop_type": "",
+        "a_time": "09:45"
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 6,
+        "stop_name": "Sunset Boulevard",
+        "next_stop": 7,
+        "stop_type": "",
+        "a_time": "09:44"
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 7,
+        "stop_name": "Sesame Street",
+        "next_stop": "0",
+        "stop_type": "F",
+        "a_time": "10:12"
+    },
+    {
+        "bus_id": 512,
+        "stop_id": 4,
+        "stop_name": "Bourbon Street",
+        "next_stop": 6,
+        "stop_type": "S",
+        "a_time": "08:13"
+    },
+    {
+        "bus_id": 512,
+        "stop_id": 6,
+        "stop_name": "Sunset Boulevard",
+        "next_stop": 0,
+        "stop_type": "F",
+        "a_time": "08:16"
+    }
+]
+```
+
+Output 1:
+```text
+Type and field validation: 3 errors
+bus_id: 0
+stop_id: 0
+stop_name: 0
+next_stop: 1
+stop_type: 0
+a_time: 2
+
+Line names and number of stops:
+bus_id: 128 stops: 4
+bus_id: 256 stops: 4
+bus_id: 512 stops: 2
+
+Start stops: 3 ['Bourbon Street', 'Pilotow Street', 'Prospekt Avenue']
+Transfer stops: 3 ['Elm Street', 'Sesame Street', 'Sunset Boulevard']
+Finish stops: 2 ['Sesame Street', 'Sunset Boulevard']
+```
