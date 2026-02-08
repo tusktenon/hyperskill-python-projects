@@ -25,3 +25,8 @@ These are the projects I completed as part of the [Python Core](https://hyperski
 - [Easy Rider Bus Company](https://hyperskill.org/projects/128)
 - [University Admission Procedure](https://hyperskill.org/projects/163)
 - [Web Scraper](https://hyperskill.org/projects/145)
+
+
+### Challenging
+
+- [Smart Calculator](https://hyperskill.org/projects/74)
