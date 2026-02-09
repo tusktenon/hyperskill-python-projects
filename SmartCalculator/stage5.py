@@ -3,8 +3,7 @@ def evaluate(expression):
     while len(terms) > 1:
         a, op, b, *terms = terms
         a, b = int(a), int(b)
-        op = int.__add__ if op.count('-') % 2 == 0 else int.__sub__
-        terms.insert(0, op(a, b))
+        terms.insert(0, a + b if op.count('-') % 2 == 0 else a - b)
     return int(terms[0])
 
 
