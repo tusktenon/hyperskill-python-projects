@@ -54,3 +54,34 @@ Wrong password!
 > python hack.py 127.0.0.1 9090 qwerty
 Connection Success!
 ```
+
+
+## Stage 2/5: Simple brute force
+
+### Description
+
+The admin noticed someone sneaking around the site with admin rights and came up with a password. Now to log in as an admin, you need to enter the password first. Maybe the admin has set a relatively easy and short password so that it is easy to remember? Let's try to brute force all possible passwords to enter the site!
+
+So far the program is very simplistic: it’s time to improve it so that it can generate different variants of the password and then try each one. The admin of the server doesn’t hide the information that passwords vary in length and may include letters from `a` to `z` and numbers from `0` to `9`. You should start with `a,b,c,....,z,0,1,..aa,ab,ac,ad` and continue until your password is correct. The `itertools.product()` function can help you here. It’s very important to try all the variants of every length because otherwise your program risks never finding the password!
+
+If the password is correct, you will receive the `Connection success!` message from the server. Otherwise, you will receive the `Wrong password!` message. The server itself cannot receive more than a million attempts, so if your program works indefinitely, you will see the unfortunate message `Too many attempts`.
+
+### Objectives
+
+In this stage, you should write a program that:
+
+1. Parses the command line and gets two arguments that are IP address and port.
+2. Tries different passwords until it finds the correct one.
+3. Prints the password it found.
+
+Note that you only have to connect to the server once and then send messages multiple times. Don't reconnect to the server before sending every message. However, each message needs to be encoded before sending and decoded after receiving from the server.
+
+Also, keep in mind that here and throughout the project, the password is randomly generated every time you check your code.
+
+### Example
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+```text
+> python hack.py localhost 9090
+pass
+```
