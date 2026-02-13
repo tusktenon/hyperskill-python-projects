@@ -30,4 +30,5 @@ These are the projects I completed as part of the [Python Core](https://hyperski
 ### Challenging
 
 - [Flashcards](https://hyperskill.org/projects/127)
+- [Password Hacker](https://hyperskill.org/projects/80)
 - [Smart Calculator](https://hyperskill.org/projects/74)
