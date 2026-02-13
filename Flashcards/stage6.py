@@ -1,5 +1,4 @@
 from collections import Counter
-from itertools import takewhile
 from random import choices
 
 cards = {}
@@ -90,12 +89,10 @@ def save_log():
 
 
 def display_hardest():
-    sorted_errors = errors.most_common()
-    if not sorted_errors or sorted_errors[0][1] == 0:
+    if not errors or (max_errors := max(errors.values())) == 0:
         _console_out('There are no cards with errors.')
     else:
-        max_errors = sorted_errors[0][1]
-        hardest = [pair[0] for pair in takewhile(lambda p: p[1] == max_errors, sorted_errors)]
+        hardest = [card for card, count in errors.items() if count == max_errors]
         _console_out(
             f'The hardest card is {hardest[0]}. You have {max_errors} errors answering it.'
             if len(hardest) == 1
