@@ -122,3 +122,96 @@ The greater-than symbol followed by a space (`> `) represents the user input. No
 > python hack.py localhost 9090
 qWeRTy
 ```
+
+
+## Stage 4/5: Catching exception
+
+### Description
+
+The server is becoming smarter along with your hacking program. Now the admin has implemented a security system by login and password. In order to access the site with admin privileges, you need to know the admin's login and password. Fortunately, we have a dictionary of different logins and a very interesting vulnerability. You need to improve your program once again to hack the new system.
+
+Also, now the admin has made a complex password that is guaranteed to be absent in the databases since it's randomly generated from several characters.
+
+The server now uses JSON to send messages.
+
+First of all, you should adjust your program so that it can send the combination of login and password in JSON format to the server. Your request should now look like this:
+```json
+{
+    "login": "admin",
+    "password": "12345678"
+}
+```
+
+In case of the wrong login, the response you receive looks like this:
+```json
+{
+    "result": "Wrong login!"
+}
+```
+
+If you got the login right but failed to find the password, you get this:
+```json
+{
+    "result": "Wrong password!"
+}
+```
+
+If your request is not in a valid JSON format or there is no "login" or "password" field, the response will be:
+```json
+{
+    "result": "Bad request!"
+}
+```
+
+If some exception happens, you'll see this result:
+```json
+{
+    "result": "Exception happened during login"
+}
+```
+
+When you finally succeed in finding both the login and the password, you'll see the following:
+```json
+{
+    "result": "Connection success!"
+}
+```
+
+Use the [dictionary of typical admin logins](https://cogniterra.org/media/attachments/lesson/24447/logins.txt). Since you don’t know the login, you should try different variants from the dictionary the same way you did at the previous stage with the passwords.
+
+As for passwords, they’ve become yet harder, so a simple dictionary is no longer enough. The passwords are formed using a combination of lower and upper case letters as well as numbers. Fortunately, a vulnerability has been found: the *exception* message pops up when the symbols you tried for the password match the beginning of the correct one.
+
+Use any password when searching for the login, as the server first checks if the login is correct. Therefore, if the server responds with *wrong password* or with an exception instead of *wrong login*, it means that the used login is correct.
+
+Try to implement logging in your program to simplify the debugging process.
+
+### Objectives
+
+Your algorithm is the following:
+
+1. Try all logins with any password.
+2. When you find the login, try out every possible password of length 1.
+3. When an exception occurs, you know that you found the first character of the password.
+4. Use the found login and the found letter to find the second letter of the password.
+5. Repeat until you receive the 'success' message.
+
+Finally, your program should print the combination of login and password in JSON format. The examples show two ways of what the output can look like.
+
+### Examples
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1:**
+```text
+> python hack.py localhost 9090
+{
+    "login" : "superuser",
+    "password" : "aDgT9tq1PU0"
+}
+```
+
+**Example 2:**
+```text
+> python hack.py localhost 9090
+{"login": "new_user", "password": "Sg967s"}
+```
