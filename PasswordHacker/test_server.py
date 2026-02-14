@@ -2,7 +2,7 @@ import socket
 
 HOST = '127.0.0.1'
 PORT = 9090
-PASSWORD = 'abc'
+PASSWORD = 'jeNNiFer'
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
