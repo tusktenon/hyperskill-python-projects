@@ -85,3 +85,40 @@ The greater-than symbol followed by a space (`> `) represents the user input. No
 > python hack.py localhost 9090
 pass
 ```
+
+
+## Stage 3/5: Smarter, dictionary-based brute force
+
+### Description
+
+Looks like you can already call yourself a hacker! However, the situation gets more complicated: the admin improves the server and our simple brute force attack is no longer working. Well, this shouldn't hold you back: you can provide your program with a prepared [dictionary of typical passwords](https://cogniterra.org/media/attachments/lesson/24447/passwords.txt) (it was generated using a [database with over a million real-life passwords](https://www.troyhunt.com/the-773-million-record-collection-1-data-reach/)).
+
+That's not all: the admin decided to outsmart us and changed the case of some letters in the new password so that we could not crack it using the password dictionary. Let's outsmart the admin and try all possible combinations of upper and lower case for each letter for all words of the password dictionary. We won't have to try too much since for a 6-letter word you'll get only 64 possible combinations.
+
+Now not only do you have to try each element of the dictionary but you also need to change the case of some letters to find the correct password. And when you've entered the correct password, the server will greet you with `Connection success!`.
+
+This has increased the time of hacking greatly, so using brute force is probably not an option. Use the dictionary of standard passwords, and do not forget to try changing the cases of different letters. For example, there is the word ‘qwerty’ in the dictionary, but the cunning admin sets it to ‘qWeRTy’. Your program should make it possible to hack such passwords, too.
+
+### Objectives
+
+In this stage, you should write a program that:
+
+1. Parses the command line and gets two arguments that are IP address and port.
+2. Finds the correct password using the list of typical passwords.
+3. Prints the password it found.
+
+While trying to figure out the password you can try using the `zip()` function to pair up upper and lower case letters and `*` to unpack lists to be used as argument to `itertools.product()`.
+
+Put the file with typical passwords into your working directory which you can find with a little help of the `os` module or you may can use absolute paths for certainty. And don't forget to log the operations of your program for easier debugging.
+
+To avoid `ConnectionResetError` and `ConnectionAbortedError`, you should close the client socket and end your program when you receive `Connection success!` from the server and print the correct password. Make sure that the program isn't stuck in a loop even after after printing the correct password.
+
+Note that here and throughout the project, the password is different every time you check your code.
+
+### Example
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+```text
+> python hack.py localhost 9090
+qWeRTy
+```
