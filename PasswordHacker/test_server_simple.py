@@ -1,3 +1,4 @@
+# Test server for Stages 2 and 3
 import socket
 
 HOST = '127.0.0.1'
