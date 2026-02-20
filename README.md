@@ -1,6 +1,6 @@
 # Hyperskill Python Projects
 
-These are the projects I completed as part of the [Python Core](https://hyperskill.org/courses/22) course on [Hyperskill](https://hyperskill.org).
+These are the projects I completed as part of the [Python Core](https://hyperskill.org/courses/22) and [Python OOP](https://hyperskill.org/courses/58) courses on [Hyperskill](https://hyperskill.org).
 
 
 ## The Projects
@@ -23,6 +23,7 @@ These are the projects I completed as part of the [Python Core](https://hyperski
 
 - [Arithmetic Exam Application](https://hyperskill.org/projects/173)
 - [Easy Rider Bus Company](https://hyperskill.org/projects/128)
+- [Knight's Tour Puzzle](https://hyperskill.org/projects/141)
 - [University Admission Procedure](https://hyperskill.org/projects/163)
 - [Web Scraper](https://hyperskill.org/projects/145)
 
