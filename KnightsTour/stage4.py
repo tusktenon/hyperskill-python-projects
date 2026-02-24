@@ -30,17 +30,12 @@ def is_possible_move(file, rank, knight_file, knight_rank):
     return False
 
 
-def possible_moves(file, rank, knight_file, knight_rank, cols, rows):
-    moves = 0
-    for m in [(1, 2), (1, -2), (-1, 2), (-1, -2), (2, 1), (2, -1), (-2, 1), (-2, -1)]:
-        new_file, new_rank = file + m[0], rank + m[1]
-        if (
-            1 <= new_file <= cols
-            and 1 <= new_rank <= rows
-            and (new_file, new_rank) != (knight_file, knight_rank)
-        ):
-            moves += 1
-    return moves
+def possible_moves(file, rank, cols, rows):
+    moves = [
+        m for m in [(1, 2), (1, -2), (-1, 2), (-1, -2), (2, 1), (2, -1), (-2, 1), (-2, -1)]
+        if 1 <= file + m[0] <= cols and 1 <= rank + m[1] <= rows
+    ]
+    return len(moves) - 1  # One of the moves returns to the starting position
 
 
 def draw_board(start_file, start_rank, cols, rows):
@@ -54,8 +49,7 @@ def draw_board(start_file, start_rank, cols, rows):
             print(
                 (cell_width - 1) * ' ' + 'X'
                 if (file, rank) == (start_file, start_rank)
-                else (cell_width - 1) * ' '
-                + str(possible_moves(file, rank, start_file, start_rank, cols, rows))
+                else (cell_width - 1) * ' ' + str(possible_moves(file, rank, cols, rows))
                 if is_possible_move(file, rank, start_file, start_rank)
                 else cell_width * '_',
                 end=' ',
