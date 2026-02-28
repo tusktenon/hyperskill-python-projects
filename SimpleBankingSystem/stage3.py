@@ -12,12 +12,13 @@ cur.execute("""
         balance INTEGER DEFAULT 0
     )
 """)
+conn.commit()
 
 
 def create_account():
     number = generate_card_number()
     pin = str(randint(0, 9999)).zfill(4)
-    cur.execute(f'INSERT INTO card (number, pin) VALUES ({number}, {pin})')
+    cur.execute('INSERT INTO card (number, pin) VALUES (?, ?)', (number, pin))
     conn.commit()
     print('\nYour card has been created')
     print('Your card number:', number, sep='\n')
@@ -29,7 +30,7 @@ def generate_card_number():
         number = 4000_0000_0000_000 + randint(0, 99_9999_999)
         number = 10 * number + luhn_check_digit(number)
         number = str(number)
-        res = cur.execute(f'SELECT id FROM card WHERE number = {number}')
+        res = cur.execute('SELECT id FROM card WHERE number = ?', (number,))
         if not res.fetchone():
             return number
 
@@ -45,7 +46,7 @@ def luhn_check_digit(n):
 def login():
     number = int(input('\nEnter your card number: '))
     pin = input('Enter your PIN: ')
-    res = cur.execute(f'SELECT id FROM card WHERE number = {number} AND pin = {pin}').fetchone()
+    res = cur.execute('SELECT id FROM card WHERE number = ? AND pin = ?', (number, pin)).fetchone()
     if res:
         print('\nYou have successfully logged in!')
         logged_in_menu(res[0])
@@ -58,7 +59,7 @@ def logged_in_menu(id):
         print('\n1. Balance\n2. Log out\n0. Exit')
         match input():
             case '1':
-                res = cur.execute(f'SELECT balance FROM card WHERE id = {id}')
+                res = cur.execute('SELECT balance FROM card WHERE id = ?', (id,))
                 balance = res.fetchone()[0]
                 print(f'\nBalance: {balance}')
             case '2':
