@@ -22,11 +22,9 @@ def create_account():
 def luhn_check_digit(n):
     digits = list(map(int, str(n)))
     for i in range(0, len(digits), 2):
-        digits[i] *= 2
-        if digits[i] > 9:
-            digits[i] -= 9
-    luhn_sum = sum(digits)
-    return 10 * ((luhn_sum + 9) // 10) - luhn_sum
+        d = digits[i]
+        digits[i] = 2 * d if d < 5 else 2 * d - 9
+    return (10 - sum(digits) % 10) % 10
 
 
 def login():
