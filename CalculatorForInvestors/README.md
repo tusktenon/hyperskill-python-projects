@@ -168,3 +168,56 @@ Enter an option:
 > 0
 Have a nice day!
 ```
+
+
+## Stage 2/4: Store it
+
+### Description
+
+A **database** is an organized collection of data, typically stored electronically in a computer system.
+
+Let's create a database. In this stage, your program will read the files and create a database with them. Follow the objectives and examples to improve your program.
+
+[companies.csv](https://cogniterra.org/media/attachments/lesson/26667/companies.csv)
+
+[financial.csv](https://cogniterra.org/media/attachments/lesson/26667/financial.csv)
+
+### Objectives
+
+Let's break the task into several steps:
+
+- Read the data from *test/companies.csv* and *test/financial.csv*;
+- Replace the empty values with `None`;
+- Create an SQLite database — *investor.db*;
+- Create the `companies` table;
+- Create the `financial` table;
+- Insert datasets to the tables;
+- End the program with a message: `Database created successfully!`;
+
+The snippet below shows the detail of the `companies` model. Please don't change the terms and types.
+```text
+ticker: String, primary_key
+name: String
+sector: String
+```
+
+The snippet below shows the details of the `financial` model. Please don't change the terms and types.
+```text
+ticker: String, primary_key
+ebitda: Float
+sales: Float
+net_profit: Float
+market_price: Float
+net_debt: Float
+assets: Float
+equity: Float
+cash_equivalents: Float
+liabilities: Float
+```
+
+### Example
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+```text
+Database created successfully!
+```
