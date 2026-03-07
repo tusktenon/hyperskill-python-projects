@@ -33,6 +33,7 @@ These are the projects I completed as part of the [Python Core](https://hyperski
 ### Challenging
 
 - [Calculator for Investors](https://hyperskill.org/projects/264)
+- [Convoy Shipping Company](https://hyperskill.org/projects/151)
 - [Flashcards](https://hyperskill.org/projects/127)
 - [Password Hacker](https://hyperskill.org/projects/80)
 - [Smart Calculator](https://hyperskill.org/projects/74)
