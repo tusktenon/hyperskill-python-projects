@@ -1,6 +1,7 @@
 __pycache__
 ArithmeticExamApplication/results.txt
 CalculatorForInvestors/**/investor.db
+ConvoyShippingCompany/*.csv
 MarkdownEditor/output.md
 SimpleBankingSystem/card.s3db
 ToDoList/todo.db
