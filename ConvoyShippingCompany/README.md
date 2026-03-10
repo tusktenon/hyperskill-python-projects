@@ -92,3 +92,52 @@ Input file name
 > convoy.xlsx
 1 line was imported to convoy.csv
 ```
+
+
+## Stage 2/6: Time to Clean Up CSV
+
+### Description
+
+As usual, no one consulted the expert (you) on how to fill the table. Another employee mixed things up and just copy-pasted entries from various documents with different formats. Luckily, no data is missing! You definitely need to clear the data from the prefixes and suffixes so that you can calculate them later. Also, you are not sure that this is the final Excel version. So, your program must include previous functionality.
+
+### Objectives
+
+1. Prompt the user to give a name for the input file (complete with the *.xlsx* or *.csv* extension). For the prompt message, use `Input file name` followed by a newline.
+
+2. If your file is *.xlsx*, convert it to *.csv*.
+
+3. If your file is *.csv* correct the data right in the file.
+
+4. Every cell of the output file, except headers, should contain only one integer number.
+
+5. Count the number of the cells corrected by your script.
+
+6. Write the corrected data to a CSV file, add the `[CHECKED]` suffix to your file. For example: *%file_name%[CHECKED].csv*.
+
+7. Your program should output the following message for the converted CSV file: `X cells were corrected` or `1 cell was corrected`, where `X` is the number of corrected cells. Include the output file name.
+For example: `4 cells were corrected in %file_name%[CHECKED].csv`.
+
+8. Display all the previous outputs for the conversions you have made earlier. 
+
+If you have corrupted test files, please [download them](https://cogniterra.org/media/attachments/lesson/25332/stage2_files.zip) and unzip in your working directory.
+
+### Examples
+
+As a sample CSV test file, use your file from the first stage. Make sure that you have the cells for correction. You can also import the table provided in the first stage as an example (which covered the test cases).
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1**
+```text
+Input file name
+> data_one_xlsx.xlsx
+1 line was added to data_one_xlsx.csv
+4 cells were corrected in data_one_xlsx[CHECKED].csv
+```
+
+**Example 2**
+```text
+Input file name
+> data_big_csv.csv
+12 cells were corrected in data_big_csv[CHECKED].csv
+```
