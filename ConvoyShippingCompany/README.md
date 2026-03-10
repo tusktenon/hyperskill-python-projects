@@ -141,3 +141,103 @@ Input file name
 > data_big_csv.csv
 12 cells were corrected in data_big_csv[CHECKED].csv
 ```
+
+
+## Stage 3/6: Finally to S3DB!
+
+### Theory
+
+SQLite3 is a relational database management system. You can use it for free; it is licensed as Public Domain. The system implements most SQL standards. For this project, we will use the basic SQLite3 functions.
+
+First, import the `sqlite3` library:
+```python
+import sqlite3
+```
+
+To connect your database to an SQLite database, use the `connect()` method from the `sqlite3` library and create a database cursor with the `cursor()` method:
+```python
+conn = sqlite3.connect('%data_base_name%.s3db')
+cursor_name = conn.cursor()
+```
+
+To execute an SQL query, use the `execute()` cursor method. This method will return an object that contains the result of the query. For example:
+```python
+result = cursor_name.execute(SQL_query_as_string)
+```
+
+To retrieve entries from the returned object, you can use two methods: `fetchall()` and `fetchone()`. The first returns all the matching entries as a list of tuples, while the second returns the next row of a query result or `None` if there are no more rows:
+```python
+all_rows = result.fetchall()
+next_row = result.fetchone()
+```
+
+Another two important methods are `close()` and `commit()`. Remember that you need to confirm some SQL queries with the `commit` command. Otherwise, the data will be lost. At the end of your code, disconnect your database. Both methods are related to the database connection:
+```python
+conn.commit()
+conn.closecommit()
+```
+
+If you need more information, the [SQLite Tutorial](https://www.sqlitetutorial.net/) will help you!
+
+### Description
+
+You are ready to create an SQLite3 database. Your bosses have some ideas on how to use the database for scoring in the future, so be ready for that! Unfortunately, it's an offer you can't refuse... The final Excel version is not ready yet. Write an algorithm that converts a corrected CSV file into an SQLite3 database.
+
+### Objectives
+
+1. Prompt the user to give a name for the input file (complete with the *.xlsx*, *.csv*, or *[CHECKED].csv* extension). For the prompt message, use `Input file name` followed by a newline.
+
+2. If your file is *.xlsx* or *.csv*, perform all the previous transformations in the correct order, until you get a file that ends with *%...%[CHECKED].csv*.
+
+3. If the file ends with *%...%[CHECKED].csv*, create an SQLite3 database with the CSV file name, change its extension to *.s3db*. Remove the *[CHECKED]* suffix. For example, *%file_name%[CHECKED].csv* should be changed to *%file_name%.s3db*.
+
+4. Use *"convoy"* as the name for your database table.
+
+5. Use headers from the CSV file as the names of the table columns.
+
+6. The `vehicle_id` column should have the `INTEGER` type; make sure it's `PRIMARY KEY`.
+
+7. Other columns should have the `INTEGER` type with `NOT NULL` attributes.
+
+8. Insert the entries from your *%...%[CHECKED].csv* file.
+
+9. Count the number of entries inserted into the database.
+
+10. Your program should output the following message: `X records were inserted` or `1 record was inserted`, where `X` is a number of inserted records and the output file name.
+For example: `4 records were inserted into %file_name%.s3db`.
+
+11. Display all the previous outputs for the conversions you have made.
+
+In case of unexpected errors, the test scripts may not be able to remove `.s3db` files from previous tests. To avoid exceptions we suggest deleting previous files before creating new ones.
+
+If you have corrupted test files, please [download them](https://cogniterra.org/media/attachments/lesson/25332/stage3_files.zip) and unzip in your working directory.
+
+### Examples
+
+You can use the *%...%[CHECKED].csv* test file from the previous stage.
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1**
+```text
+Input file name
+> data_one_xlsx.xlsx
+1 line was added to data_one_xlsx.csv
+4 cells were corrected in data_one_xlsx[CHECKED].csv
+1 record was inserted into data_one_xlsx.s3db
+```
+
+**Example 2**
+```text
+Input file name
+> data_big_csv.csv
+12 cells were corrected in data_big_csv[CHECKED].csv
+10 records were inserted into data_big_csv.s3db
+```
+
+**Example 3**
+```text
+Input file name
+> data_big_chk[CHECKED].csv
+10 records were inserted into data_big_chk.s3db
+```
