@@ -2,6 +2,7 @@ __pycache__
 ArithmeticExamApplication/results.txt
 CalculatorForInvestors/**/investor.db
 ConvoyShippingCompany/*.csv
+ConvoyShippingCompany/*.json
 ConvoyShippingCompany/*.s3db
 MarkdownEditor/output.md
 SimpleBankingSystem/card.s3db
