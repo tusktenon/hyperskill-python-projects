@@ -326,3 +326,94 @@ Input file name
 > data_one_sql.s3db
 1 vehicle was saved into data_one_sql.json
 ```
+
+
+## Stage 5/6: ...Another to XML
+
+### Description
+
+It's time to make the final transformation. You need to convert your SQLite3 database to XML. In this stage, your algorithm should export all the database entries. The final Excel file is expected next week: they promised.
+
+### Objectives
+
+1. Prompt the user to give a name for the input file (complete with the *.xlsx*, *.csv*, *[CHECKED].csv* or *.s3db* extension). For the prompt message, use `Input file name` followed by a newline.
+
+2. If your file is *.xlsx* or *.csv*, or it ends with *%...%[CHECKED].csv*, perform all the previous transformations in the correct order until you get an SQLite3 file.
+
+3. If your file is *.s3db*, generate a fresh JSON file, and XML with the same name, and the extensions *.json* and *.xml*. Both files should have all the entries from the SQLite3 file.
+
+4. An XML file with two entries should look like this:
+    ```xml
+    <convoy>
+        <vehicle>
+            <vehicle_id>2</vehicle_id>
+            <engine_capacity>200</engine_capacity>
+            <fuel_consumption>25</fuel_consumption>
+            <maximum_load>70</maximum_load>
+        </vehicle>
+        <vehicle>
+            <vehicle_id>4</vehicle_id>
+            <engine_capacity>220</engine_capacity>
+            <fuel_consumption>55</fuel_consumption>
+            <maximum_load>110</maximum_load>
+        </vehicle>
+    </convoy>
+    ```
+5. Indentation size is not important.
+
+6. A number is located between the tags with no spaces.
+
+7. Save the data to the XML file. It can be either a single string or a formatted block of text as in the example above.
+
+8. Count the number of entries exported to the XML file.
+
+9. Your program should output the following message: `X vehicles were saved` or `1 vehicle was saved`, where `X` is the number of inserted entries. It should include the output file name.
+For example: `10 vehicles were saved into file_name.xml`.
+
+10. Display all the previous outputs for the conversions you have made.
+
+If you have corrupted test files, please [download them](https://cogniterra.org/media/attachments/lesson/25332/stage5_files.zip) and unzip in your working directory.
+
+### Examples
+
+You can use the *.s3db* test file from stage 3.
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1**
+```text
+Input file name
+> data_one_xlsx.xlsx
+1 line was added to data_one_xlsx.csv
+4 cells were corrected in data_one_xlsx[CHECKED].csv
+1 record was inserted into data_one_xlsx.s3db
+1 vehicle was saved into data_one_xlsx.json
+1 vehicle was saved into data_one_xlsx.xml
+```
+
+**Example 2**
+```text
+Input file name
+> data_big_csv.csv
+12 cells were corrected in data_big_csv[CHECKED].csv
+10 records were inserted into data_big_csv.s3db
+10 vehilces were saved into data_big_csv.json
+10 vehicles were saved into data_big_csv.xml
+```
+
+**Example 3**
+```text
+Input file name
+> data_big_chk[CHECKED].csv
+10 records were inserted into data_big_chk.s3db
+10 vehicles were saved into data_big_chk.json
+10 vehicles were saved into data_big_chk.xml
+```
+
+**Example 4**
+```text
+Input file name
+> data_one_sql.s3db
+1 vehicle was saved into data_one_sql.json
+1 vehicle was saved into data_one_sql.xml
+```
