@@ -241,3 +241,88 @@ Input file name
 > data_big_chk[CHECKED].csv
 10 records were inserted into data_big_chk.s3db
 ```
+
+
+## Stage 4/6: One Part to JSON...
+
+### Description
+
+Your database is ready. As you may have expected, you still don't have the final Excel version. Your boss told you that you will have to export part of the database to two different systems. You don't know which data goes where, but rumor has it you will need a scoring function for this. For now, your algorithm should export all the database entries. The first system needs the data in the JSON format.
+
+### Objectives
+
+1. Prompt the user to give a name for the input file (complete with the *.xlsx*, *.csv*, *[CHECKED].csv* or *.s3db* extension). For the prompt message, use `Input file name` followed by a newline.
+
+2. If your file is *.xlsx* or *.csv*, or it ends with the *%...%[CHECKED].csv*, perform all previous transformations in the correct order until you get an SQLite3 file.
+
+3. Once you have an SQLite3 file, generate a JSON file with the same name; use the *.json* extension.
+
+4. The JSON object should have the following structure ( the indenting is for illustration purposes only and doesn’t need to appear in the output file):
+    ```json
+    {
+        "convoy": [
+            {
+                "vehicle_id": 2,
+                "engine_capacity": 200,
+                "fuel_consumption": 25,
+                "maximum_load": 70
+            },
+            {
+                "vehicle_id": 1024,
+                "engine_capacity": 500,
+                "fuel_consumption": 80,
+                "maximum_load": 150
+            }
+        ]
+    }
+    ```
+
+5. Save the data to a file as a JSON object .
+
+6. Count the number of entries exported to the JSON file.
+
+7. Your program should output the following message: `X vehicles were saved` or `1 vehicle was saved`, where `X` is a number of inserted entries. It should also include the output file name.
+For example: `10 vehicles were saved into %file_name%.json`.
+
+8. Display all the previous outputs for the conversions you have made.
+
+If you have corrupted test files, please [download them](https://cogniterra.org/media/attachments/lesson/25332/stage4_files.zip) and unzip in your working directory.
+
+### Examples
+
+You can use the *.s3db* test file from the previous stage as a sample.
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1**
+```text
+Input file name
+> data_one_xlsx.xlsx
+1 line was added to data_one_xlsx.csv
+4 cells were corrected in data_one_xlsx[CHECKED].csv
+1 record was inserted into data_one_xlsx.s3db
+1 vehicle was saved into data_one_xlsx.json
+```
+
+**Example 2**
+```text
+Input file name
+> data_big_csv.csv
+12 cells were corrected in data_big_csv[CHECKED].csv
+10 records were inserted into data_big_csv.s3db
+10 vehicles were saved into data_big_csv.json
+```
+
+**Example 3**
+```text
+Input file name
+> data_big_chk[CHECKED].csv
+10 records were inserted into data_big_chk.s3db
+10 vehicles were saved into data_big_chk.json
+```
+**Example 4**
+```text
+Input file name
+> data_one_sql.s3db
+1 vehicle was saved into data_one_sql.json
+```
