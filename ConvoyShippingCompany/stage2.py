@@ -1,41 +1,21 @@
-import csv
-import re
-
 import pandas as pd
 
 filename, extension = input('Input file name\n').rsplit('.', maxsplit=1)
 
 if extension not in ('csv', 'xlsx'):
-    print('Unknown file extension:', extension)
+    print('Unsupported file type:', extension)
     exit(1)
 
-src_filename = filename + '.csv'
-dest_filename = filename + '[CHECKED].csv'
+unchecked = filename + '.csv'
+checked = filename + '[CHECKED].csv'
 
 if extension == 'xlsx':
     df = pd.read_excel(filename + '.xlsx', sheet_name='Vehicles', dtype=str)
-    df.to_csv(src_filename, index=False)
-    print(f'{len(df)} line{" was" if len(df) == 1 else "s were"} imported to {src_filename}')
+    df.to_csv(unchecked, index=False)
+    print(f'{len(df)} line{" was" if len(df) == 1 else "s were"} imported to {unchecked}')
 
-with open(src_filename, newline='') as src:
-    with open(dest_filename, 'w', newline='') as dest:
-        src_reader = csv.reader(src, delimiter=',')
-        dest_writer = csv.writer(dest, delimiter=',', lineterminator='\n')
-        header_row = True
-        corrected = 0
-        for row in src_reader:
-            if header_row:
-                dest_writer.writerow(row)
-                header_row = False
-                continue
-            corrected_row = []
-            for cell in row:
-                number = re.search(r'\d+', cell).group()
-                corrected_row.append(number)
-                if cell != number:
-                    corrected += 1
-            dest_writer.writerow(corrected_row)
-        print(
-            f'{corrected} cell{" was" if corrected == 1 else "s were"} corrected in {dest_filename}'
-        )
-
+original = pd.read_csv(unchecked).astype(str)
+corrected = original.replace(r'\D', '', regex=True)
+corrections = (original != corrected).to_numpy().sum()
+corrected.to_csv(checked, index=False)
+print(f'{corrections} cell{" was" if corrections == 1 else "s were"} corrected in {checked}')
