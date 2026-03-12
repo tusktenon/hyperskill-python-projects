@@ -417,3 +417,103 @@ Input file name
 1 vehicle was saved into data_one_sql.json
 1 vehicle was saved into data_one_sql.xml
 ```
+
+
+## Stage 6/6: It's Scoring Time!
+
+### Description
+
+The requirements for the scoring function have been defined. And it looks like you have the final version of the Excel file. It's time to prepare the scoring function and export the selected entries to JSON and XML files.
+
+The idea of scoring function is to define under what conditions the scoring points are to be given. The next step is to determine how many points are enough to qualify or reject the testing object.
+
+In our case, the management clarified some key issues:
+1) Number of pitstops. If there are two or more gas stops on the way, the object has 0 points. One stop at the filling station means 1 point. No stops — 2 scoring points.
+2) Fuel consumed over the entire trip. If a truck burned 230 liters or less, 2 points are given. If more — 1 point.
+3) Truck capacity. If the capacity is 20 tones or more, it gets 2 points. If less — 0 points.
+
+It was found that the average route length is 450 km. Do not include the return path: 450 kilometers is the whole route. Remember that the `engine_capacity` is in liters, the `fuel_consumption` is in liters/100 kilometers, and the `maximum_load` is in tonnes.
+
+Interesting fact: scoring functions are often used by banks to pre-estimate the so-called credit score.
+
+### Objectives
+
+1. Prompt the user to give a name for the input file (complete with the *.xlsx*, *.csv*, *[CHECKED].csv* or *.s3db* extension). For the prompt message, use `Input file name` followed by a newline.
+
+2. If your file is *.xlsx* or *.csv*, or it ends with *%...%[CHECKED].csv*, perform all the previous transformations in the correct order.
+
+3. Add the `score` column to *.s3db* files. Populate the column with the scoring points, according to the algorithm described above. The `score` column should be added during the conversion from *%...%[CHECKED].csv* to *.s3db*.
+
+4. Generate JSON and XML files according to the scoring points. All entries with a score of greater than 3 should be exported to the JSON file, others to the XML file.
+
+5. The `score` column should not be exported to JSON and XML files.
+
+6. Count the number of entries imported to JSON and XML files.
+
+7. Your program should output the following message: `X vehicles were saved` or `1 vehicle was saved`, where `X` is the number of inserted entries. The program should include the output file name. For example:
+    ```text
+    9 vehicles were saved into %file_name%.json
+    0 vehicles were saved into %file_name%.xml
+    ```
+
+8. Display all the previous outputs for the conversions you have made.
+
+For example, take a look at the following entries:
+
+| vehicle_id | engine_capacity | fuel_consumption | maximum_load |
+| ---------- | --------------- | ---------------- | ------------ |
+| 10         | 200             | 50               | 6            |
+
+In the SQLite database, they should look like this:
+
+| vehicle_id | engine_capacity | fuel_consumption | maximum_load | score |
+| ---------- | --------------- | ---------------- | ------------ | ----- |
+| 10         | 200             | 50               | 6            | 3     |
+
+Route length is 450 km. One stop at the filling station (1 point), the fuel consumption is below 230 liters (2 points), and the maximum capacity is below 20 tonnes (0 points). This entry should go to the XML file.
+
+If you have corrupted test files, please [download them](https://cogniterra.org/media/attachments/lesson/25332/stage6_files.zip) and unzip in your working directory.
+
+### Examples
+
+You can use the files from the previous stages.
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1**
+```text
+Input file name
+> data_final_xlsx.xlsx
+19 lines were added to data_final_xlsx.csv
+3 cells were corrected in data_final_xlsx[CHECKED].csv
+19 records were inserted into data_final_xlsx.s3db
+12 vehicles were saved into data_final_xlsx.json
+7 vehicles were saved into data_final_xlsx.xml
+```
+
+**Example 2**
+```text
+Input file name
+> data_big_csv.csv
+12 cells were corrected in data_big_csv[CHECKED].csv
+10 records were inserted into data_big_csv.s3db
+7 vehicles were saved into data_big_csv.json
+3 vehicles were saved into data_big_csv.xml
+```
+
+**Example 3**
+```text
+Input file name
+> data_big_chk[CHECKED].csv
+10 records were inserted into data_big_chk.s3db
+7 vehicles were saved into data_big_chk.json
+3 vehicles were saved into data_big_chk.xml
+```
+
+**Example 4**
+```text
+Input file name
+> data_big_sql.s3db
+10 vehicles were saved into data_big_sql.json
+0 vehicles were saved into data_big_sql.xml
+```
