@@ -4,6 +4,7 @@ CalculatorForInvestors/**/investor.db
 ConvoyShippingCompany/*.csv
 ConvoyShippingCompany/*.json
 ConvoyShippingCompany/*.s3db
+ConvoyShippingCompany/*.xml
 MarkdownEditor/output.md
 SimpleBankingSystem/card.s3db
 ToDoList/todo.db
