@@ -6,6 +6,7 @@ ConvoyShippingCompany/*.json
 ConvoyShippingCompany/*.s3db
 ConvoyShippingCompany/*.xml
 MarkdownEditor/output.md
+MemorizationTool/flashcard.db
 SimpleBankingSystem/card.s3db
 ToDoList/todo.db
 UniversityAdmissionProcedure/*.txt
