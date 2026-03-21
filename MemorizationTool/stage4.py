@@ -69,6 +69,7 @@ def practice_menu():
                         break
                     case _:
                         print(selection, 'is not an option')
+        session.commit()
 
 
 def learning_menu(session, card):
@@ -80,12 +81,9 @@ def learning_menu(session, card):
                     session.delete(card)
                 else:
                     card.box += 1
-                session.commit()
                 break
             case 'n':
-                if card.box != 1:
-                    card.box = 1
-                    session.commit()
+                card.box = 1
                 break
             case _:
                 print(selection, 'is not an option')
@@ -97,17 +95,12 @@ def update_menu(session, card):
         match selection := input():
             case 'd':
                 session.delete(card)
-                session.commit()
                 break
             case 'e':
                 print('current question:', card.question)
-                if new_question := input('please write a new question: ').strip():
-                    card.question = new_question
+                card.question = input('please write a new question: ').strip() or card.question
                 print('current answer:', card.answer)
-                if new_answer := input('please write a new answer: ').strip():
-                    card.answer = new_answer
-                if new_question or new_answer:
-                    session.commit()
+                card.answer = input('please write a new answer: ').strip() or card.answer
                 break
             case _:
                 print(selection, 'is not an option')
