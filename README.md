@@ -38,3 +38,4 @@ These are the projects I completed as part of the [Python Core](https://hyperski
 - [Memorization Tool](https://hyperskill.org/projects/159)
 - [Password Hacker](https://hyperskill.org/projects/80)
 - [Smart Calculator](https://hyperskill.org/projects/74)
+- [Tiny Redis](https://hyperskill.org/projects/549)
