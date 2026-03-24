@@ -40,7 +40,7 @@ Use the SQLite syntax for creating tables. The following links could help you to
 Assign your queries to the variables, as in the example. It is required for testing only.
 
 **Example 1:** *an extract from the program*
-```python
+```text
 create_book_table = "CREATE TABLE book (
    id INTEGER PRIMARY KEY,
    ...
@@ -52,4 +52,65 @@ create_student_table = "CREATE TABLE student (
    ...
    ...
 );"
+```
+
+
+## Stage 2/4: Staff and books
+
+### Description
+
+You have created the necessary tables, but these tables should not remain empty. The library never stops working — readers take and return books every day. Large libraries need long shelves and databases for dealing with massive pools of data. It's time to fill our tables!
+
+### Objectives
+
+Add the following data requested from you to the required tables:
+
+- The `book` table:
+
+| book_name                                 | isbn       | genre         | author       | book_year | book_count | book_page | rank |
+| ----------------------------------------- | ---------- | ------------- | ------------ | --------- | ---------- | --------- | ---- |
+| The Metamorphosis                         | 0393347095 | Novella       | Franz Kafka  | 2014      | 2          | 128       | 4.4  |
+| Harry Potter And The Order Of The Phoenix | 0439358078 | Fantasy       | J.K. Rowling | 2004      | 3          | 896       | 4.2  |
+| Anna Karenina                             | 0198800533 | Realist Novel | Leo Tolstoy  | 2017      | 1          | 896       | 4.6  |
+
+- The `staff` table:
+
+| full_name     | gender | date_of_birth |
+| ------------- | ------ | ------------- |
+| Steve Smith   | Male   | 1992-04-23    |
+| Ashley Miller | Female | 1995-01-16    |
+
+- The `student` table:
+
+| full_name      | gender | date_of_birth |
+| -------------- | ------ | ------------- |
+| Mia Yang       | Female | 1996-09-15    |
+| Bob Lee        | Male   | 1997-12-13    |
+| Eric Rampy     | Male   | 1995-08-21    |
+| Stefany Ferenz | Female | 1996-04-01    |
+
+- The `operation` table:
+
+| student_id | staff_id | book_id | iss_date   | return_date   | return_indicator |
+| ---------- | -------- | ------- | ---------- | ------------- | ---------------- |
+| 3          | 1        | 1       | 4 days ago | 10 days later | False            |
+| 1          | 1        | 3       | Yesterday  | 13 days later | False            |
+| 2          | 2        | 2       | Yesterday  | 6 days later  | False            |
+| 4          | 2        | 2       | Today      | 14 days later | False            |
+
+Pay attention to the following:
+
+- Calculate the `iss_date` and `return_date` values.
+- You may either write a date as a string in the following format `YYYY-MM-DD` or use the `date()` function to calculate a date. For example, `date('now')` will return the current date. Check out [this link](https://www.sqlite.org/lang_datefunc.html) for more details.
+- For `return_indicator` with delivery information: `0` = `False`, `1` = `True`.
+
+### Example
+
+Do not delete the code you've composed in the previous stage. Assign your queries to the variables, as in the example. It is required for testing only.
+
+**Example 1:** *an extract from the program*
+```text
+insert_book_table = "INSERT INTO book VALUES (...);"
+
+insert_staff_table = "INSERT INTO staff VALUES (...);"
 ```
