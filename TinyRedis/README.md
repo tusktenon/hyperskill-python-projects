@@ -63,3 +63,56 @@ Since our Tiny Redis only knows 2 commands (for now), any other command should r
 -Unknown command!\r\n
 > +EXIT\r\n
 ```
+
+
+## Stage 2/6: Argument parsing
+
+### Description
+
+Last time we simplified the Redis protocol a little to not overwhelm ourselves with complex commands and arguments. Now it is time to learn to work with the proper Redis format, after which, we can start using our server with real utilities like `redis-cli` or [redis-py](https://github.com/redis/redis-py) library.
+
+### Objectives
+
+In this stage, you will configure your TCP server to handle real Redis commands with arguments. Also, you will implement the `ECHO` command that simply responds with whatever message the client has sent to your server.
+
+Look at the [Redis serialization protocol specification](https://redis.io/docs/latest/develop/reference/protocol-spec/#arrays) again. It defines the format for client request messages using the following rules:
+
+- Messages start with `*` followed by a number. This tells us the message is an array with that many items. All request messages must be formatted as arrays.
+- After the array symbol and number, you add `\r\n` (called CRLF).
+- Then you add the actual commands and arguments as "bulk strings." Each bulk string uses this pattern: `$<length>\r\n<data>\r\n` where `<length>` is how many characters are in your string, and `<data>` is your actual command or argument.
+
+So the actual `PING` message we sent in the last stage would look like this: `*1\r\n$4\r\nPING\r\n`.
+
+Based on this information, your goal is to rewrite the parsing rules for client commands (but the response should stay the same). Return an error saying `Parsing error!` for any problem with command formatting.
+
+Additionally, implement command `ECHO`. When the client sends this command, it should be followed by some message. Your server should simply send this message back. Refer to the examples to see the proper formatting.
+
+### Examples
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+**Example 1**
+
+New `ECHO` command should return the exact same message back to the client. Note the length of the string.
+
+Comments above inputs and outputs shows commands stripped from special symbols for convenience.
+
+**Notice** that the string `Hello World!` is just one argument!
+```text
+# ECHO "You've probably heard me before!"
+> *2\r\n$4\r\nECHO\r\n$32\r\nYou've probably heard me before!\r\n
+$32\r\nYou've probably heard me before!\r\n
+> *1\r\n$4\r\nEXIT\r\n
+```
+
+**Example 2**
+
+We won't be testing every possible case, but try to come up with a comprehensive list of things that can go wrong with message formatting from the client side.
+```text
+> +PING\r\n
+-Parsing error!\r\n
+> *1\r\n$4\r\nEXIT\r\n
+```
+
+> [!NOTE]
+> Good news, since we have completely adopted the formatting of the Redis protocol, now you can use redis-cli to interact with your own server. Make sure that your server is running, then open redis-cli in another shell/terminal, and you should be able to talk to your Tiny Redis as if it's a complete grown-up Redis already!
