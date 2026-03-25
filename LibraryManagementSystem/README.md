@@ -177,3 +177,26 @@ update_operation_inf = "UPDATE operation SET ...;"
 
 update_book_inf = "UPDATE book SET ... ;"
 ```
+
+## Stage 4/4: Verify data
+
+### Description
+
+In a real library, hundreds of students borrow hundreds of different books every day. By combining different tables, we can solve all kinds of problems that arise. For example, having received a fresh sequel of "Harry Potter", we can easily choose exactly those students who are most likely to be interested in it and offer it to them.
+
+### Objectives
+
+Let's remember what our database looks like:
+
+![](database.svg)
+
+Write a query where we can find the names of the students who bought the book with `id = 2`. The results should be sorted by `full_name`, and you should build your query using the JOIN keyword.
+
+### Example
+
+Do not delete the code you've composed in the previous stage. Assign your queries to the variables, as in the example. It is required for testing only.
+
+**Example 1:** *an extract from the program*
+```text
+student_inf = "SELECT full_name FROM ... ;"
+```
