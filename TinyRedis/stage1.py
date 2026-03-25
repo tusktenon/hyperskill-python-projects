@@ -11,10 +11,7 @@ with socket.socket() as server_socket:
     while True:
         conn, addr = server_socket.accept()
         with conn:
-            while True:
-                data = conn.recv(1024)
-                if not data:
-                    break
+            while data := conn.recv(1024):
                 match data.decode():
                     case '+PING\r\n':
                         conn.send(b'+PONG\r\n')
