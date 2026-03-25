@@ -76,3 +76,8 @@ update_operation_inf = "UPDATE operation
 update_book_inf = "UPDATE book
   SET book_count = book_count + 1
   WHERE book_name = 'The Metamorphosis';"
+
+
+student_inf = "SELECT full_name FROM student s JOIN operation o
+  WHERE s.id = o.student_id AND o.book_id = 2
+  ORDER BY full_name ;"
