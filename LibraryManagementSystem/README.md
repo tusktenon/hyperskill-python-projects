@@ -114,3 +114,66 @@ insert_book_table = "INSERT INTO book VALUES (...);"
 
 insert_staff_table = "INSERT INTO staff VALUES (...);"
 ```
+
+
+## Stage 3/4: Remove old books
+
+### Description
+
+Sometimes, there's a need to change the number of books or return dates. A member can take more than one book; damaged books should be discarded. For these changes, update the database regularly.
+
+### Objectives
+
+Let's see what our data looks like now:
+
+- The `book` table:
+
+| id  | book_name                                 | isbn       | genre         | author       | book_year | book_count | book_page | rank |
+| --- | ----------------------------------------- | ---------- | ------------- | ------------ | --------- | ---------- | --------- | ---- |
+| 1   | The Metamorphosis                         | 0393347095 | Novella       | Franz Kafka  | 2014      | 2          | 128       | 4.4  |
+| 2   | Harry Potter And The Order Of The Phoenix | 0439358078 | Fantasy       | J.K. Rowling | 2004      | 3          | 896       | 4.2  |
+| 3   | Anna Karenina                             | 0198800533 | Realist Novel | Leo Tolstoy  | 2017      | 1          | 896       | 4.6  |
+
+- The `staff` table:
+
+| id  | full_name     | gender | date_of_birth |
+| --- | ------------- | ------ | ------------- |
+| 1   | Steve Smith   | Male   | 1992-04-23    |
+| 2   | Ashley Miller | Female | 1995-01-16    |
+
+- The `student` table:
+
+| id  | full_name      | gender | date_of_birth |
+| --- | -------------- | ------ | ------------- |
+| 1   | Mia Yang       | Female | 1996-09-15    |
+| 2   | Bob Lee        | Male   | 1997-12-13    |
+| 3   | Eric Rampy     | Male   | 1995-08-21    |
+| 4   | Stefany Ferenz | Female | 1996-04-01    |
+
+- The `operation` table:
+
+| student_id | staff_id | book_id | iss_date   | return_date   | return_indicator |
+| ---------- | -------- | ------- | ---------- | ------------- | ---------------- |
+| 3          | 1        | 1       | 4 days ago | 10 days later | False            |
+| 1          | 1        | 3       | Yesterday  | 13 days later | False            |
+| 2          | 2        | 2       | Yesterday  | 6 days later  | False            |
+| 4          | 2        | 2       | Today      | 14 days later | False            |
+
+In this stage, update the following:
+
+- Replace the following information with what exists in the table: `Ashley Miller` -> `Ashley Bailey`;
+- `Eric Rampy` returned the book ten days before the return date. Make the necessary changes to the operation table: change the return date and the returned column to `true` for transaction;
+- Add one more book to the available "The Metamorphosis" accordingly.
+
+### Example
+
+Do not delete the code you've composed in the previous stage. Assign your queries to the variables, as in the example. It is required for testing only.
+
+**Example 1:** *an extract from the program*
+```text
+update_staff_inf = "UPDATE staff SET ... ;"
+
+update_operation_inf = "UPDATE operation SET ...;"
+
+update_book_inf = "UPDATE book SET ... ;"
+```
