@@ -79,5 +79,6 @@ update_book_inf = "UPDATE book
 
 
 student_inf = "SELECT full_name FROM student s JOIN operation o
-  WHERE s.id = o.student_id AND o.book_id = 2
+  ON s.id = o.student_id
+  WHERE o.book_id = 2
   ORDER BY full_name ;"
