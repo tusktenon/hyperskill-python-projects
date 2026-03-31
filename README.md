@@ -26,6 +26,7 @@ These are the projects I completed as part of the [Python Core](https://hyperski
 - [Arithmetic Exam Application](https://hyperskill.org/projects/173)
 - [Easy Rider Bus Company](https://hyperskill.org/projects/128)
 - [Knight's Tour Puzzle](https://hyperskill.org/projects/141)
+- [Sorting Tool with Python](https://hyperskill.org/projects/307)
 - [To-Do List](https://hyperskill.org/projects/105)
 - [University Admission Procedure](https://hyperskill.org/projects/163)
 - [Web Scraper](https://hyperskill.org/projects/145)
