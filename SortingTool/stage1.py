@@ -6,7 +6,6 @@ while True:
         break
 
 greatest = max(numbers)
-greatest_count = len([x for x in numbers if x == greatest])
 
 print(f'Total numbers: {len(numbers)}.')
-print(f'The greatest number: {greatest} ({greatest_count} time(s)).')
+print(f'The greatest number: {greatest} ({numbers.count(greatest)} time(s)).')
