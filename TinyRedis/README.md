@@ -116,3 +116,51 @@ We won't be testing every possible case, but try to come up with a comprehensive
 
 > [!NOTE]
 > Good news, since we have completely adopted the formatting of the Redis protocol, now you can use redis-cli to interact with your own server. Make sure that your server is running, then open redis-cli in another shell/terminal, and you should be able to talk to your Tiny Redis as if it's a complete grown-up Redis already!
+
+
+## Stage 3/6: Saving and retrieving data
+
+### Description
+
+The time has come to implement two main features of our in-memory database, without which it wouldn't even be a database at all! Let's configure Tiny Redis to be able to save and retrieve data.
+
+### Objectives
+
+In this stage, you will implement `GET` and `SET` commands on the server. `SET` should save the data sent by the client in memory using a client-specified key, while `GET` will fetch the same data using a provided key.
+
+The implementation details are up to you, but keep in mind the following restrictions:
+
+- The keys must be unique, and if a new value is set with the same key, the previous value should be overwritten.
+- If a key does not exist, on `GET` the server should return [null bulk string](https://redis.io/docs/latest/develop/reference/protocol-spec/#null-bulk-strings).
+- For the sake of simplicity, we will only use string data types as both keys and values in our testing data.
+
+Commands will be formatted the same way they were formatted in the last stage. Please refer to the examples.
+
+### Examples
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+Comments above inputs and outputs shows commands stripped from special symbols for convenience.
+
+**Example 1**
+
+Client can retrieve a value by key they set previously.
+```text
+# SET champion Carlsen
+> *3\r\n$3\r\nSET\r\n$8\r\nchampion\r\n$7\r\nCarlsen\r\n
++OK\r\n
+# GET champion
+> *2\r\n$3\r\nGET\r\n$8\r\nchampion\r\n
+$7\r\nCarlsen\r\n
+> *1\r\n$4\r\nEXIT\r\n
+```
+
+**Example 2**
+
+Client can't retrieve a value by a key that does not exist.
+```text
+# GET nepo-titles
+> *2\r\n$3\r\nGET\r\n$15\r\nnepo-titles\r\n
+$-1\r\n
+> *1\r\n$4\r\nEXIT\r\n
+```
