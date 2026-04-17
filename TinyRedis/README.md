@@ -164,3 +164,57 @@ Client can't retrieve a value by a key that does not exist.
 $-1\r\n
 > *1\r\n$4\r\nEXIT\r\n
 ```
+
+
+## Stage 4/6: Clearing data
+
+### Description
+
+Since our database exists only in computer memory, which is often many times smaller than disk storage, we need to create a mechanism to clear parts of memory when the data is no longer needed. The server should be able to receive direct commands to clear specific keys, and also have a timeout mechanism to automatically clear keys that have been in memory for too long.
+
+### Objectives
+
+In this stage, you will implement the `DEL` command that will remove a key and its respective value from the server completely. Additionally, your `SET` command will need to handle a new `EX` argument that comes after the value being set, representing the expiration time in seconds. For example, the command `SET name Layla EX 3600` will set the value `Layla` for key `name` with an expiration of one hour. `GET`-ing an expired key should return a [null bulk string](https://redis.io/docs/latest/develop/reference/protocol-spec/#null-bulk-strings).
+
+If a negative timeout value is provided with the `EX` argument, the server should respond with a parsing error, as negative expiration times are invalid.
+
+You can read more about Redis key expiration [here](https://redis.io/docs/latest/commands/expire/).
+
+> [!NOTE]
+> In actual Redis implementation, the key expiration process is designed as removing a key from memory when it is accessed via `GET` after the expiration time. This is the most efficient approach, since you won't need to spend server resources maintaining a time counter for each key (which makes sense when you consider that a real database can easily hold millions of keys). However, this approach raises the question of how to delete keys that will never be accessed again. To handle this, Redis periodically tests random subsets of keys for their expiration dates. You don't need to implement such a periodic task in this stage to pass the tests, but take a moment to think about how you could design this system.
+
+### Examples
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+Comments above inputs and outputs shows commands stripped from special symbols for convenience.
+
+**Example 1**
+
+Client can delete a previously set key.
+```text
+# SET surname Madrox
+> *3\r\n$3\r\nSET\r\n$7\r\nsurname\r\n$6\r\nMadrox\r\n
++OK\r\n
+# DEL surname
+> *2\r\n$3\r\nDEL\r\n$7\r\nsurname\r\n
++OK\r\n
+# GET surname
+> *2\r\n$3\r\nGET\r\n$7\r\nsurname\r\n
+$-1\r\n
+> *1\r\n$4\r\nEXIT\r\n
+```
+
+**Example 2**
+
+Client gets null answer when trying to receive an expired key.
+```text
+# SET team X-Factor EX 5
+> *5\r\n$3\r\nSET\r\n$4\r\nteam\r\n$8\r\nX-Factor\r\n$2\r\nEX\r\n$1\r\n5\r\n
++OK\r\n
+# Waiting for more than 5 seconds...
+# GET team
+> *2\r\n$3\r\nGET\r\n$4\r\nteam\r\n
+$-1\r\n
+> *1\r\n$4\r\nEXIT\r\n
+```
