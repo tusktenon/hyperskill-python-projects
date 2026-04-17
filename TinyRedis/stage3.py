@@ -4,7 +4,7 @@ HOST = '0.0.0.0'
 PORT = 6379
 
 
-def encode(strings):
+def encode(*strings):
     array = []
     for s in strings:
         array.append('$' + str(len(s)))
@@ -46,16 +46,16 @@ def main():
                         match (array[0], len(array)):
                             case ('GET', 2):
                                 try:
-                                    conn.send(encode([database[array[1]]]))
+                                    conn.send(encode(database[array[1]]))
                                 except KeyError:
                                     conn.send(b'$-1\r\n')
                             case ('SET', 3):
                                 database[array[1]] = array[2]
                                 conn.send(b'+OK\r\n')
                             case ('PING', 1):
-                                conn.send(encode(['PONG']))
+                                conn.send(encode('PONG'))
                             case ('ECHO', 2):
-                                conn.send(encode([array[1]]))
+                                conn.send(encode(array[1]))
                             case ('EXIT', 1):
                                 exit(0)
                             case _:
