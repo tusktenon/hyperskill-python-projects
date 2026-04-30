@@ -218,3 +218,41 @@ Client gets null answer when trying to receive an expired key.
 $-1\r\n
 > *1\r\n$4\r\nEXIT\r\n
 ```
+
+
+## Stage 5/6: Multiple connections
+
+### Description
+
+So far, our Tiny Redis has been handling only one client at a time, which works fine for testing but isn't very practical in the real world. Real applications need to serve multiple users simultaneously - imagine a web application where only one user could access the database at a time! We need to make our server capable of accepting and managing multiple client connections concurrently, allowing each client to send commands independently without blocking others.
+
+### Objectives
+
+In this stage, you will implement concurrent connection handling that allows multiple clients to connect to your Redis server simultaneously. Each client should be able to send commands and receive responses independently, without waiting for other clients to finish their operations. You'll need to handle new client connections, manage active sessions, and properly clean up resources when clients disconnect.
+
+For example, if Client A is executing a long-running operation, Client B should still be able to connect and execute quick `GET` or `SET` commands without any delays.
+
+**Hint:** the most straightforward way to solve this stage would be using `threading` module in Python. Hope you're already familiar with it! If you're doing something wrong, you will most likely see connection errors in test results.
+
+### Examples
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+Comments above inputs and outputs shows commands stripped from special symbols for convenience.
+
+**Example 1**
+
+Two `GET` operations are executed by two connected clients simultaneously. Please remember to send `+OK\r\n` back on `SET`!
+```text
+# Client 1
+# SET author Kleppmann
+> *3\r\n$3\r\nSET\r\n$6\r\nauthor\r\n$9\r\nKleppmann\r\n
++OK\r\n
+# The following operations are executed simultaneously
+# Client 1: GET author
+> *2\r\n$3\r\nGET\r\n$6\r\nauthor\r\n
+$9\r\nKleppmann\r\n
+# Client 2: GET author
+> *2\r\n$3\r\nGET\r\n$6\r\nauthor\r\n
+$9\r\nKleppmann\r\n
+```
