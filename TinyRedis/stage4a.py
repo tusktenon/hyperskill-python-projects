@@ -38,82 +38,90 @@ class ExpiringDatastore:
         return (expiry := self._data[key][1]) and expiry < time.time()
 
 
-def encode(*strings):
-    array = []
-    for s in strings:
-        array.append('$' + str(len(s)))
-        array.append(s)
-    return ('\r\n'.join(array) + '\r\n').encode()
+class Server:
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
+        self._data = ExpiringDatastore()
 
+    def run(self):
+        with socket.socket() as server_socket:
+            server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            server_socket.bind((HOST, PORT))
+            server_socket.listen()
+            while True:
+                conn, addr = server_socket.accept()
+                self._handle_client(conn)
 
-def parse(data):
-    if not data.endswith(b'\r\n'):
-        raise ValueError()
+    def _handle_client(self, conn):
+        with conn:
+            while data := conn.recv(1024):
+                # remove expired entries before processing next request
+                self._data.cleanup()
+                try:
+                    array = self.parse(data)
+                    match (array[0], len(array)):
+                        case ('GET', 2):
+                            try:
+                                conn.send(self.encode(self._data[array[1]]))
+                            except KeyError:
+                                conn.send(b'$-1\r\n')
+                        case ('SET', 3):
+                            self._data[array[1]] = (array[2], None)
+                            conn.send(b'+OK\r\n')
+                        case ('SET', 5) if array[3] == 'EX':
+                            expiry = int(array[4])
+                            if expiry < 0:
+                                raise ValueError
+                            self._data[array[1]] = (array[2], expiry)
+                            conn.send(b'+OK\r\n')
+                        case ('DEL', 2):
+                            try:
+                                del self._data[array[1]]
+                            except KeyError:
+                                pass
+                            conn.send(b'+OK\r\n')
+                        case ('PING', 1):
+                            conn.send(self.encode('PONG'))
+                        case ('ECHO', 2):
+                            conn.send(self.encode(array[1]))
+                        case ('EXIT', 1):
+                            exit(0)
+                        case _:
+                            conn.send(b'-Parsing error!\r\n')
+                except ValueError:
+                    conn.send(b'-Parsing error!\r\n')
 
-    items, *bulk_strings = data.removesuffix(b'\r\n').split(b'\r\n')
+    @staticmethod
+    def encode(*strings):
+        array = []
+        for s in strings:
+            array.append('$' + str(len(s)))
+            array.append(s)
+        return ('\r\n'.join(array) + '\r\n').encode()
 
-    if not (items.startswith(b'*') and 2 * int(items.removeprefix(b'*')) == len(bulk_strings)):
-        raise ValueError()
-
-    decoded = []
-    while bulk_strings:
-        length, string, *bulk_strings = bulk_strings
-        if not (length.startswith(b'$') and int(length.removeprefix(b'$')) == len(string)):
+    @staticmethod
+    def parse(data):
+        if not data.endswith(b'\r\n'):
             raise ValueError()
-        decoded.append(string.decode())
 
-    return decoded
+        items, *bulk_strings = data.removesuffix(b'\r\n').split(b'\r\n')
 
+        if not (items.startswith(b'*') and 2 * int(items.removeprefix(b'*')) == len(bulk_strings)):
+            raise ValueError()
 
-def handle_client(conn, datastore):
-    with conn:
-        while data := conn.recv(1024):
-            # remove expired entries before processing next request
-            datastore.cleanup()
-            try:
-                array = parse(data)
-                match (array[0], len(array)):
-                    case ('GET', 2):
-                        try:
-                            conn.send(encode(datastore[array[1]]))
-                        except KeyError:
-                            conn.send(b'$-1\r\n')
-                    case ('SET', 3):
-                        datastore[array[1]] = (array[2], None)
-                        conn.send(b'+OK\r\n')
-                    case ('SET', 5) if array[3] == 'EX':
-                        expiry = int(array[4])
-                        if expiry < 0:
-                            raise ValueError
-                        datastore[array[1]] = (array[2], expiry)
-                        conn.send(b'+OK\r\n')
-                    case ('DEL', 2):
-                        try:
-                            del datastore[array[1]]
-                        except KeyError:
-                            pass
-                        conn.send(b'+OK\r\n')
-                    case ('PING', 1):
-                        conn.send(encode('PONG'))
-                    case ('ECHO', 2):
-                        conn.send(encode(array[1]))
-                    case ('EXIT', 1):
-                        exit(0)
-                    case _:
-                        conn.send(b'-Parsing error!\r\n')
-            except ValueError:
-                conn.send(b'-Parsing error!\r\n')
+        decoded = []
+        while bulk_strings:
+            length, string, *bulk_strings = bulk_strings
+            if not (length.startswith(b'$') and int(length.removeprefix(b'$')) == len(string)):
+                raise ValueError()
+            decoded.append(string.decode())
+
+        return decoded
 
 
 def main():
-    datastore = ExpiringDatastore()
-    with socket.socket() as server_socket:
-        server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        server_socket.bind((HOST, PORT))
-        server_socket.listen()
-        while True:
-            conn, addr = server_socket.accept()
-            handle_client(conn, datastore)
+    Server(HOST, PORT).run()
 
 
 if __name__ == '__main__':
