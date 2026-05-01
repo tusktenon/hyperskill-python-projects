@@ -256,3 +256,47 @@ $9\r\nKleppmann\r\n
 > *2\r\n$3\r\nGET\r\n$6\r\nauthor\r\n
 $9\r\nKleppmann\r\n
 ```
+
+
+## Stage 6/6: Subscriptions and subscribers
+
+### Description
+
+Another great feature of Redis is publish-subscribe system. It's a pattern that allows efficient broadcast of messages to interested clients without requiring to constantly poll for updates. Connected users can subscribe to specific channels and automatically receive messages when other clients publish to those channels. This can help orchestrate communication between multiple services.
+
+Consider the following example. You are building a platform that provides live scores for sport events. You have several external services that send data to your main platform, and then you have several clients that consume this data. Instead of programming complex logic to send data to specific clients or having clients constantly poll for updates, you can use your in-memory DB with pub/sub functionality. External services publish score updates to channels named after specific games (like `efl-cup:grimsby-manchester`), and your mobile apps, websites, and displays simply subscribe to the channels they're interested in. When a goal happens, the data provider publishes the update and instantly every subscribed client receives it simultaneously without the server needing to maintain routing logic.
+
+### Objectives
+
+In this stage, you will implement the `SUBSCRIBE` command that allows clients to listen for messages on one or more channels. You'll also need to implement the `PUBLISH` command that sends messages to all clients currently subscribed to a given channel. When a message is published to a channel, all subscribers should immediately receive that message along with the channel name and message content.
+
+For example, if a client runs `SUBSCRIBE anime-news`, it will start listening for messages on this channel (don't forget to send `+OK\r\n` response right after this). When another client runs `PUBLISH anime-news "New Akiyuki Shinbo movie announced!"`, the subscribed client should receive the message immediately. For the format of the received message, see the examples.
+
+You can read more about Redis pub/sub [here](https://redis.io/docs/latest/develop/pubsub/).
+
+> [!NOTE]
+> In Redis RESP2 protocol (succeeded by RESP3 but still widely used), subscribed clients enter a special state where they can only execute pub/sub related commands. You don't need to implement the same restriction here. Another thing that should not be tested, but which you should think about is how you'll handle clients that disconnect while subscribed? If they will not be removed with some mechanism, it will result in memory leaks.
+
+### Examples
+
+The greater-than symbol followed by a space (`> `) represents the user input. Note that it's not part of the input.
+
+Comments above inputs and outputs shows commands stripped from special symbols for convenience.
+
+**Example 1**
+
+Subscribers receive messages from a channel.
+```text
+# Client 1
+# SUBSCRIBE madoka-news
+> *2\r\n$9\r\nSUBSCRIBE\r\n$11\r\nmadoka-news\r\n
++OK\r\n
+# Client 2
+# PUBLISH madoka-news "Walpurgisnacht out!"
+> *3\r\n$7\r\nPUBLISH\r\n$11\r\nmadoka-news\r\n$19\r\nWalpurgisnacht out!\r\n
+# Now, Client 1 receives:
+# message madoka-news "Walpurgisnacht out!"
+*3\r\n$7\r\nmessage\r\n$11\r\nmadoka-news\r\n$19\r\nWalpurgisnacht out!\r\n
+```
+
+This stage concludes our project. If you're reading this (and completed the current task!), you already have a working version of not-so-Tiny Redis that you can use in your future projects! We encourage you not to stop here, though. There are multiple features left to implement from the Redis documentation (for example, [different types of data](https://redis.io/docs/latest/develop/reference/protocol-spec/#booleans), [proper authorization](https://redis.io/docs/latest/develop/reference/protocol-spec/#client-handshake), and even [transactions](https://redis.io/docs/latest/develop/using-commands/transactions/)). However, we encourage you to add something of your own. One feature that Redis doesn't have, but your implementation will have. Post your original solutions to the solution tab, or even share your GitHub repository to inspire fellow students!
