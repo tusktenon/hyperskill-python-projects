@@ -1,6 +1,6 @@
 # Hyperskill Python Projects
 
-These are the projects I completed as part of the [Python Core](https://hyperskill.org/courses/22), [Python Developer](https://hyperskill.org/courses/2), [Python OOP](https://hyperskill.org/courses/58) and [Databases with SQL and Python](https://hyperskill.org/courses/30) courses on [Hyperskill](https://hyperskill.org).
+These are the projects I completed as part of the [Python Core](https://hyperskill.org/courses/22) and [Python Developer](https://hyperskill.org/courses/2) courses on [Hyperskill](https://hyperskill.org).
 
 
 ## The Projects
